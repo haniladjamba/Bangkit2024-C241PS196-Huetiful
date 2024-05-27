@@ -1,4 +1,4 @@
-package com.bangkit2024.huetiful.ui.home
+package com.bangkit2024.huetiful.ui.fragments.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

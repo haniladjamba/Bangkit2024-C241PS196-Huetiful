@@ -1,5 +1,6 @@
-package com.bangkit2024.huetiful.ui.home
+package com.bangkit2024.huetiful.ui.fragments.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.FragmentHomeBinding
+import com.bangkit2024.huetiful.ui.activity.ResultActivity
 
 class HomeFragment : Fragment() {
 
@@ -37,7 +39,15 @@ class HomeFragment : Fragment() {
 //            textView.text = it
 //        }
         setTvTitle()
+        setupAction()
         return binding.root
+    }
+
+    private fun setupAction() {
+        binding.btnAnalyze.setOnClickListener {
+            val intent = Intent(requireContext(), ResultActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setTvTitle() {

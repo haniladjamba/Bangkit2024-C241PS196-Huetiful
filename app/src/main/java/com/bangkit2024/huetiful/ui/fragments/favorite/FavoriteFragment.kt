@@ -1,4 +1,4 @@
-package com.bangkit2024.huetiful.ui.favorite
+package com.bangkit2024.huetiful.ui.fragments.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

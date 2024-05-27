@@ -1,4 +1,4 @@
-package com.bangkit2024.huetiful.ui.favorite
+package com.bangkit2024.huetiful.ui.fragments.favorite
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -22,10 +22,10 @@ class FavoriteAdapter : ListAdapter<PalateModel, FavoriteAdapter.MyViewHolder>(D
 
     class MyViewHolder(binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        val circleImageView1 = binding.vColor1
-        val circleImageView2 = binding.vColor2
-        val circleImageView3 = binding.vColor3
-        val circleImageView4 = binding.vColor4
+        private val circleImageView1 = binding.vColor1
+        private val circleImageView2 = binding.vColor2
+        private val circleImageView3 = binding.vColor3
+        private val circleImageView4 = binding.vColor4
 
         fun bind(data: PalateModel) {
             circleImageView1.setBackgroundColor(Color.parseColor(data.color1))

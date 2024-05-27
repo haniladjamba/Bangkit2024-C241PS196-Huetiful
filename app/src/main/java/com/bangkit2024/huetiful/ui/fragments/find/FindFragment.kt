@@ -1,5 +1,6 @@
-package com.bangkit2024.huetiful.ui.find
+package com.bangkit2024.huetiful.ui.fragments.find
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.FragmentFindBinding
+import com.bangkit2024.huetiful.ui.activity.ResultActivity
 
 class FindFragment : Fragment() {
 
@@ -30,6 +32,14 @@ class FindFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setTvTitle()
+        setupAction()
+    }
+
+    private fun setupAction() {
+        binding.btnAnalyzeFind.setOnClickListener {
+            val intent = Intent(requireContext(), ResultActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setTvTitle() {

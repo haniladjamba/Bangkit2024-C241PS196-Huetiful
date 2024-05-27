@@ -1,4 +1,4 @@
-package com.bangkit2024.huetiful
+package com.bangkit2024.huetiful.ui.activity
 
 import android.os.Bundle
 import android.view.Window
@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +31,10 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_find, R.id.navigation_favorite, R.id.navigation_settings
+                R.id.navigation_home,
+                R.id.navigation_find,
+                R.id.navigation_favorite,
+                R.id.navigation_settings
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

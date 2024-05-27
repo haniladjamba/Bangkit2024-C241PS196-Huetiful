@@ -20,4 +20,8 @@
     <string name="logout">Log out</string>
     <string name="item_saved_name">Saved</string>
     <string name="palate">Palate :</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recomended_tone">Recomended tone</string>
+    <string name="result">Result</string>
 </resources>

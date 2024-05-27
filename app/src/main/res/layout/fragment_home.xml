@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.fragments.home.HomeFragment">
 
     <TextView
         android:id="@+id/tv_title"
@@ -56,6 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
         android:layout_marginStart="25dp"
+        app:cornerRadius="20dp"
         app:layout_constraintStart_toStartOf="@+id/iv_preview_image"
         app:layout_constraintTop_toBottomOf="@id/iv_preview_image"/>
 
@@ -67,6 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_analyze"
         app:layout_constraintEnd_toEndOf="@+id/iv_preview_image"
         app:layout_constraintStart_toEndOf="@+id/btn_gallery"

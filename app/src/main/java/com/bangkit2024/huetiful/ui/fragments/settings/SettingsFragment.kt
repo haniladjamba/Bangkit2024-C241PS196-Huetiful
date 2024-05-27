@@ -1,4 +1,4 @@
-package com.bangkit2024.huetiful.ui.settings
+package com.bangkit2024.huetiful.ui.fragments.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
