@@ -9,6 +9,16 @@
         android:id="@+id/navigation_result"
         android:name="com.bangkit2024.huetiful.ui.fragments.result.ResultFragment"
         android:label="@string/result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_navigation_result_to_navigation_fulldetail"
+            app:destination="@id/navigation_fulldetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_fulldetail"
+        android:name="com.bangkit2024.huetiful.ui.fragments.fulldetail.FullDetailFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_full_detail" />
 
 </navigation>

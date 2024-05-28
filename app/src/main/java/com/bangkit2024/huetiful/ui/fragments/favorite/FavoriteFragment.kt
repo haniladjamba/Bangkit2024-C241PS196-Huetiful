@@ -38,6 +38,36 @@ class FavoriteFragment : Fragment() {
                 color2 = "#FF859F",
                 color3 = "#FFBCD5",
                 color4 = "#F6D0C5"
+            ),
+            PalateModel(
+                color1 = "#C44F6B",
+                color2 = "#FF859F",
+                color3 = "#FFBCD5",
+                color4 = "#F6D0C5"
+            ),
+            PalateModel(
+                color1 = "#C44F6B",
+                color2 = "#FF859F",
+                color3 = "#FFBCD5",
+                color4 = "#F6D0C5"
+            ),
+            PalateModel(
+                color1 = "#C44F6B",
+                color2 = "#FF859F",
+                color3 = "#FFBCD5",
+                color4 = "#F6D0C5"
+            ),
+            PalateModel(
+                color1 = "#C44F6B",
+                color2 = "#FF859F",
+                color3 = "#FFBCD5",
+                color4 = "#F6D0C5"
+            ),
+            PalateModel(
+                color1 = "#C44F6B",
+                color2 = "#FF859F",
+                color3 = "#FFBCD5",
+                color4 = "#F6D0C5"
             )
         )
 
