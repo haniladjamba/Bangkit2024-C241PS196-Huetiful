@@ -1,4 +1,4 @@
-package com.bangkit2024.huetiful.ui.activity
+package com.bangkit2024.huetiful.ui.activity.main
 
 import android.os.Bundle
 import android.view.Window

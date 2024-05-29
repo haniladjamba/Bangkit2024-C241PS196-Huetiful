@@ -1,4 +1,4 @@
-package com.bangkit2024.huetiful.ui.fragments.result
+package com.bangkit2024.huetiful.ui.fragments.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,21 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.local.model.PalateModel
-import com.bangkit2024.huetiful.databinding.FragmentResultBinding
+import com.bangkit2024.huetiful.databinding.FragmentDetailBinding
 import com.bangkit2024.huetiful.ui.fragments.NavigationController
+import com.bangkit2024.huetiful.ui.fragments.result.ResultAdapter
 
-class ResultFragment : Fragment() {
+class DetailFragment : Fragment() {
 
-    private var _binding: FragmentResultBinding? = null
+    private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val navigationController = NavigationController.getInstance()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentResultBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -33,8 +36,8 @@ class ResultFragment : Fragment() {
     }
 
     private fun setupAction() {
-        binding.tvShowMore.setOnClickListener {
-            navigationController.navigateToDetailFragment(it)
+        binding.tvShowLess.setOnClickListener {
+            navigationController.navigateToResultFragment(it)
         }
     }
 
@@ -81,11 +84,10 @@ class ResultFragment : Fragment() {
 
     private fun setupAdapter(palateModel: List<PalateModel>) {
         val layoutManager = LinearLayoutManager(requireContext())
-        binding.rvResult.layoutManager = layoutManager
+        binding.rvDetail.layoutManager = layoutManager
 
-        val resultAdapter = ResultAdapter(navigationController, this)
-        binding.rvResult.adapter = resultAdapter
-        resultAdapter.submitList(palateModel)
+        val detailAdapter = ResultAdapter(navigationController, this)
+        binding.rvDetail.adapter = detailAdapter
+        detailAdapter.submitList(palateModel)
     }
-
 }

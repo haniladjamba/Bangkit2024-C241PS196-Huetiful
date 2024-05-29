@@ -1,4 +1,4 @@
-package com.bangkit2024.huetiful.ui.activity
+package com.bangkit2024.huetiful.ui.activity.result
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

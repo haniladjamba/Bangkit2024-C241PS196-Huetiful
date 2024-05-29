@@ -4,14 +4,16 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit2024.huetiful.data.local.model.PalateModel
 import com.bangkit2024.huetiful.databinding.ItemResultBinding
 import com.bangkit2024.huetiful.ui.fragments.NavigationController
+import com.bangkit2024.huetiful.ui.fragments.detail.DetailFragment
 
-class ResultAdapter(private val navController: NavigationController) : ListAdapter<PalateModel, ResultAdapter.ResultViewHolder>(DIFF_CALLBACK) {
+class ResultAdapter(private val navController: NavigationController, private val fragment: Fragment) : ListAdapter<PalateModel, ResultAdapter.ResultViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultViewHolder {
         val binding = ItemResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,7 +25,12 @@ class ResultAdapter(private val navController: NavigationController) : ListAdapt
     }
 
     fun onItemClick(view: View) {
-        navController.navigatToFullDetailFragment(view)
+        if (fragment is ResultFragment) {
+            navController.navigatToFullDetailFragment(view)
+        } else if (fragment is DetailFragment) {
+            navController.navigateToFullDetailFragmentFromDetail(view)
+        }
+
     }
 
     inner class ResultViewHolder(binding: ItemResultBinding) : RecyclerView.ViewHolder(binding.root) {

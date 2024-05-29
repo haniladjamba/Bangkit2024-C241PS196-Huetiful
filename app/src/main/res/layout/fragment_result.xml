@@ -46,6 +46,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+            <TextView
+                android:id="@+id/tv_show_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/show_more"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="@color/red_700"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="400dp"

@@ -8,13 +8,11 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.FragmentHomeBinding
-import com.bangkit2024.huetiful.ui.activity.ResultActivity
+import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
 
 class HomeFragment : Fragment() {
 

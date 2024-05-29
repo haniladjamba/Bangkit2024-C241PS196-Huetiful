@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.FragmentFindBinding
-import com.bangkit2024.huetiful.ui.activity.ResultActivity
+import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
 
 class FindFragment : Fragment() {
 
