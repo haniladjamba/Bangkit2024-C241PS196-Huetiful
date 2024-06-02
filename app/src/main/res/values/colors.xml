@@ -2,6 +2,7 @@
 <resources>
     <color name="red_700">#A60321</color>
     <color name="red_500">#A60F37</color>
+    <color name="red_600">#EA3657</color>
     <color name="red_gray_100">#A68A91</color>
     <color name="white_100">#F2F2F2</color>
     <color name="black_900">#0D0D0D</color>
@@ -20,4 +21,11 @@
     <color name="red">#ff3d00</color>
     <color name="green">#4caf50</color>
     <color name="blue">#1976d2</color>
+    <color name="blue_light">#a8dadc</color>
+    <color name="blue_600">#457b9d</color>
+    <color name="blue_navy">#1d3557</color>
+    <color name="orange_red_800">#e63946</color>
+
+    <color name="yellow_light">#F3EED9</color>
+    <color name="blue_ocean">#7BB0E0</color>
 </resources>
