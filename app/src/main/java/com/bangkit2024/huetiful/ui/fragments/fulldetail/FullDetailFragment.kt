@@ -51,6 +51,9 @@ class FullDetailFragment : Fragment() {
             ),
             DetailPalateModel(
                 color = "#F6D0C5"
+            ),
+            DetailPalateModel(
+                color = "#FFBCD5"
             )
         )
     }

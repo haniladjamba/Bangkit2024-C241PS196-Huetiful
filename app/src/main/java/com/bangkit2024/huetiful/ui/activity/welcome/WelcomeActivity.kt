@@ -2,10 +2,12 @@ package com.bangkit2024.huetiful.ui.activity.welcome
 
 import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bangkit2024.huetiful.R
@@ -17,8 +19,10 @@ class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         setSpanTvQuote()
         setupAnimation()
@@ -66,8 +70,6 @@ class WelcomeActivity : AppCompatActivity() {
             val intent = Intent(this@WelcomeActivity, SignUpActivity::class.java)
             startActivity(intent)
 
-//            val animButton = binding.btnStart.background as AnimationDrawable
-//            animButton.start()
         }
     }
 
@@ -76,7 +78,9 @@ class WelcomeActivity : AppCompatActivity() {
         val animLogo = binding.ivLogo.drawable as AnimatedVectorDrawable
         animLogo.start()
 
-//        val animButton = binding.btnStart.background as AnimationDrawable
-//        animButton.start()
+        val animButtonStart = binding.btnStart.background as AnimationDrawable
+        animButtonStart.setEnterFadeDuration(1000)
+        animButtonStart.setExitFadeDuration(2000)
+        animButtonStart.start()
     }
 }

@@ -95,6 +95,17 @@
             app:layout_constraintStart_toEndOf="@id/v_color_3"
             app:layout_constraintTop_toBottomOf="@id/tv_palates_info"/>
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/v_color_5"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/black"
+            app:layout_constraintStart_toEndOf="@id/v_color_4"
+            app:layout_constraintTop_toBottomOf="@id/tv_palates_info"/>
+
         <ImageView
             android:id="@+id/i_favorite"
             android:layout_width="35dp"

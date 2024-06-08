@@ -47,37 +47,43 @@ class DetailFragment : Fragment() {
                 color1 = "#C44F6B",
                 color2 = "#FF859F",
                 color3 = "#FFBCD5",
-                color4 = "#F6D0C5"
+                color4 = "#F6D0C5",
+                color5 = "#FF859F"
             ),
             PalateModel(
                 color1 = "#C44F6B",
                 color2 = "#FF859F",
                 color3 = "#FFBCD5",
-                color4 = "#F6D0C5"
+                color4 = "#F6D0C5",
+                color5 = "#FF859F"
             ),
             PalateModel(
                 color1 = "#C44F6B",
                 color2 = "#FF859F",
                 color3 = "#FFBCD5",
-                color4 = "#F6D0C5"
+                color4 = "#F6D0C5",
+                color5 = "#FF859F"
             ),
             PalateModel(
                 color1 = "#C44F6B",
                 color2 = "#FF859F",
                 color3 = "#FFBCD5",
-                color4 = "#F6D0C5"
+                color4 = "#F6D0C5",
+                color5 = "#FF859F"
             ),
             PalateModel(
                 color1 = "#C44F6B",
                 color2 = "#FF859F",
                 color3 = "#FFBCD5",
-                color4 = "#F6D0C5"
+                color4 = "#F6D0C5",
+                color5 = "#FF859F"
             ),
             PalateModel(
                 color1 = "#C44F6B",
                 color2 = "#FF859F",
                 color3 = "#FFBCD5",
-                color4 = "#F6D0C5"
+                color4 = "#F6D0C5",
+                color5 = "#FF859F"
             )
         )
     }

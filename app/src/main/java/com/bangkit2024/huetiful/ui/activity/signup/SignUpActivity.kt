@@ -1,9 +1,11 @@
 package com.bangkit2024.huetiful.ui.activity.signup
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivitySignUpBinding
 import com.bangkit2024.huetiful.ui.activity.login.LoginActivity
 
@@ -25,11 +27,14 @@ class SignUpActivity : AppCompatActivity() {
         // Delete this later
         binding.btnSignup.setOnClickListener {
             val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-            startActivity(intent)
+            val option = ActivityOptions.makeCustomAnimation(this, R.anim.fade, R.anim.fade_out)
+            startActivity(intent, option.toBundle())
         }
         binding.tvToLogin.setOnClickListener {
             val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-            startActivity(intent)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val option = ActivityOptions.makeCustomAnimation(this, R.anim.fade, R.anim.fade_out)
+            startActivity(intent, option.toBundle())
         }
 
     }

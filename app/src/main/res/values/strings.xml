@@ -24,7 +24,7 @@
     <string name="recomended_tone">Recommended tone</string>
     <string name="result">Result</string>
     <string name="detail">Detail</string>
-    <string name="name">Name</string>
+    <string name="name">name</string>
     <string name="show_less">Show less</string>
     <string name="show_more">Show more</string>
     <string name="welcome_title">Welcome to</string>
@@ -41,4 +41,9 @@
     <string name="welcome_quote">"Dare to be "</string>
     <string name="welcome_sub_quote">Life\'s too short for boring colors, isn\'t it?</string>
     <string name="welcome_quote2">"Be "</string>
+    <string name="login_info">Please login to continue with your account</string>
+    <string name="get_started_info">It\'s free and always will be</string>
+    <string name="no_media_selected">No media selected</string>
+    <string name="error_opening_camera">Error opening camera</string>
+    <string name="cannot_find_image">Cannot find image</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.ui.fragments.favorite
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit2024.huetiful.data.local.model.PalateModel
 import com.bangkit2024.huetiful.databinding.ItemFavoriteBinding
+import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
 
 class FavoriteAdapter : ListAdapter<PalateModel, FavoriteAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -26,12 +28,19 @@ class FavoriteAdapter : ListAdapter<PalateModel, FavoriteAdapter.MyViewHolder>(D
         private val circleImageView2 = binding.vColor2
         private val circleImageView3 = binding.vColor3
         private val circleImageView4 = binding.vColor4
+        private val circleImageView5 = binding.vColor5
 
         fun bind(data: PalateModel) {
             circleImageView1.setBackgroundColor(Color.parseColor(data.color1))
             circleImageView2.setBackgroundColor(Color.parseColor(data.color2))
             circleImageView3.setBackgroundColor(Color.parseColor(data.color3))
             circleImageView4.setBackgroundColor(Color.parseColor(data.color4))
+            circleImageView5.setBackgroundColor(Color.parseColor(data.color5))
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, ResultActivity::class.java)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 

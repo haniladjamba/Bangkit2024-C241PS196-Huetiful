@@ -4,7 +4,7 @@ import android.view.View
 import androidx.navigation.Navigation.findNavController
 import com.bangkit2024.huetiful.R
 
-class NavigationController() {
+class NavigationController {
     fun navigatToFullDetailFragment(view: View) {
         val navController = findNavController(view)
         navController.navigate(R.id.action_navigation_result_to_navigation_fulldetail)

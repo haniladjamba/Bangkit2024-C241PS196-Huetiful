@@ -15,7 +15,7 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_info_find"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top"
         app:layout_constraintEnd_toEndOf="@+id/iv_preview_image_find"
         app:layout_constraintStart_toStartOf="@+id/iv_preview_image_find" />
 
@@ -23,12 +23,14 @@
         android:id="@+id/tv_info_find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/home_info"
         android:textSize="14sp"
         android:textStyle="normal"
         android:textColor="@color/black"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@id/iv_preview_image_find"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_find"
         app:layout_constraintEnd_toEndOf="@+id/iv_preview_image_find"
         app:layout_constraintStart_toStartOf="@+id/iv_preview_image_find" />
 
@@ -38,14 +40,14 @@
         android:scaleType="centerInside"
         android:layout_width="250dp"
         android:layout_height="280dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintVertical_bias="0.3"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv_info_find" />
 
     <Button
         android:id="@+id/btn_gallery_find"
@@ -83,5 +85,12 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_camera_find"
         app:layout_constraintStart_toStartOf="@+id/btn_gallery_find"
         app:layout_constraintTop_toBottomOf="@id/btn_gallery_find" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="120dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

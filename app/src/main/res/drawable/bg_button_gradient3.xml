@@ -5,6 +5,7 @@
             <gradient
                 android:startColor="@color/blue_navy"
                 android:endColor="@color/orange_red_800" />
+            <corners android:radius="10dp" />
         </shape>
     </item>
 </selector>
