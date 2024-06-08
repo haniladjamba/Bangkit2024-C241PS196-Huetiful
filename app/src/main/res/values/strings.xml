@@ -46,4 +46,5 @@
     <string name="no_media_selected">No media selected</string>
     <string name="error_opening_camera">Error opening camera</string>
     <string name="cannot_find_image">Cannot find image</string>
+    <string name="failed_register_account">Failed to register your account</string>
 </resources>

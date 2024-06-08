@@ -8,15 +8,22 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Window
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityWelcomeBinding
+import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
+import com.bangkit2024.huetiful.ui.activity.main.MainActivity
 import com.bangkit2024.huetiful.ui.activity.signup.SignUpActivity
 
 class WelcomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWelcomeBinding
+    private val welcomeViewModel by viewModels<WelcomeViewModel> {
+        AuthViewModelFactory.getInstance(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -26,7 +33,19 @@ class WelcomeActivity : AppCompatActivity() {
 
         setSpanTvQuote()
         setupAnimation()
+
+        // remove this comment when api is available
+//        checkSession()
         setupAction()
+    }
+
+    private fun checkSession() {
+        welcomeViewModel.getSession().observe(this) { user ->
+            if (user.isLogin) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        }
     }
 
     private fun setSpanTvQuote() {

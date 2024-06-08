@@ -2,6 +2,7 @@ package com.bangkit2024.huetiful.ui.activity.main
 
 import android.os.Bundle
 import android.view.Window
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -10,10 +11,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityMainBinding
+import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
+import com.bangkit2024.huetiful.ui.fragments.settings.SettingsViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val settingsViewModel by viewModels<SettingsViewModel> {
+        AuthViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,5 +45,15 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        userLogout()
+    }
+
+    private fun userLogout() {
+        settingsViewModel.closeApp.observe(this) { shouldClose ->
+            if (shouldClose) {
+                finish()
+            }
+        }
     }
 }
