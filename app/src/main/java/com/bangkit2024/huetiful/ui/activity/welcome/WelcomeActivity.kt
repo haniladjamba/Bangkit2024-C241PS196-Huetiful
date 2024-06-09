@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.Window
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityWelcomeBinding
@@ -33,10 +34,20 @@ class WelcomeActivity : AppCompatActivity() {
 
         setSpanTvQuote()
         setupAnimation()
-
+        checkTheme()
         // remove this comment when api is available
 //        checkSession()
         setupAction()
+    }
+
+    private fun checkTheme() {
+        welcomeViewModel.getThemeSettings().observe(this) { isDarkMode ->
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     private fun checkSession() {

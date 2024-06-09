@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.FragmentSettingsBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 
@@ -31,13 +31,36 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // uncomment this line when api service is available
-//        setupAction()
+
+        observeSwitchStatus()
+        setupAction()
+    }
+
+    private fun observeSwitchStatus() {
+        settingsViewModel.getThemeSetting().observe(requireActivity()) { isDarkMode: Boolean ->
+            if (isDarkMode) {
+                binding.swChangeTheme.isChecked = true
+            } else {
+                binding.swChangeTheme.isChecked = false
+            }
+        }
     }
 
     private fun setupAction() {
-        binding.btnLogout.setOnClickListener {
-            settingsViewModel.logout()
+        // uncomment when api service is available
+//        binding.btnLogout.setOnClickListener {
+//            settingsViewModel.logout()
+//        }
+        binding.swChangeTheme.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                settingsViewModel.saveThemeSetting(isChecked)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                binding.swChangeTheme.isChecked = true
+            } else {
+                settingsViewModel.saveThemeSetting(isChecked)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                binding.swChangeTheme.isChecked = false
+            }
         }
     }
 }

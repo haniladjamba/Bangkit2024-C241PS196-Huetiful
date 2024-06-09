@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.data.repository
 
+import com.bangkit2024.huetiful.data.pref.SettingsPreference
 import com.bangkit2024.huetiful.data.pref.UserModel
 import com.bangkit2024.huetiful.data.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
