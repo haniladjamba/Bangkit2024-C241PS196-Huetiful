@@ -11,13 +11,12 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_signup"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="450dp"
         app:cardCornerRadius="24dp"
         android:backgroundTint="@color/white_100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
         android:translationY="12dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -186,8 +185,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@string/alredy_have_account"
-                    app:layout_constraintTop_toBottomOf="@id/btn_signup"
-                    app:layout_constraintStart_toStartOf="parent"
                     />
 
                 <TextView
@@ -197,10 +194,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginStart="4dp"
                     android:text="@string/login"
-                    android:textColor="@color/red_700"
-                    app:layout_constraintTop_toBottomOf="@id/btn_signup"
-                    app:layout_constraintStart_toEndOf="@id/btn_signup"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:textColor="@color/red_700" />
 
             </LinearLayout>
 

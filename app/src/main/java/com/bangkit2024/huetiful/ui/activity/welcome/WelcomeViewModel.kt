@@ -16,7 +16,7 @@ class WelcomeViewModel(
     }
 
     fun getThemeSettings(): LiveData<Boolean> {
-        return settingPreferenceRepository.getThemeSetting()
+        return settingPreferenceRepository.getThemeSetting().asLiveData()
     }
 
 }

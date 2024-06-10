@@ -31,7 +31,7 @@ class SettingsViewModel(
     }
 
     fun getThemeSetting(): LiveData<Boolean> {
-        return settingPreferenceRepository.getThemeSetting()
+        return settingPreferenceRepository.getThemeSetting().asLiveData()
     }
 
     fun saveThemeSetting(isDarkMode: Boolean) {

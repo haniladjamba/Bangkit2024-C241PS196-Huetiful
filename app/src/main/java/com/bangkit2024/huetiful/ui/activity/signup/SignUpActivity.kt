@@ -15,6 +15,7 @@ import com.bangkit2024.huetiful.databinding.ActivitySignUpBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.login.LoginActivity
 import com.bangkit2024.huetiful.data.Result
+import com.bangkit2024.huetiful.ui.activity.verification.VerificationActivity
 import kotlinx.coroutines.launch
 
 class SignUpActivity : AppCompatActivity() {
@@ -43,7 +44,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.btnSignup.setOnClickListener {
             // uncomment this line when api service is available
 //            registerUser()
-            navigateToLogin()
+            navigateToVerifyEmail()
         }
         binding.tvToLogin.setOnClickListener {
             val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
@@ -63,7 +64,7 @@ class SignUpActivity : AppCompatActivity() {
             signUpViewModel.registerState.collect { result ->
                 when (result) {
                     is Result.Loading -> showLoading()
-                    is Result.Success -> navigateToLogin()
+                    is Result.Success -> navigateToVerifyEmail()
                     is Result.Error -> showRegistrationError(result.error)
                 }
             }
@@ -79,10 +80,9 @@ class SignUpActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun navigateToLogin() {
-        val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-        val option = ActivityOptions.makeCustomAnimation(this, R.anim.fade, R.anim.fade_out)
-        startActivity(intent, option.toBundle())
+    private fun navigateToVerifyEmail() {
+        val intent = Intent(this@SignUpActivity, VerificationActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showLoading() {

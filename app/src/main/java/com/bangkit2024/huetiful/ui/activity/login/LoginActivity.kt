@@ -14,6 +14,7 @@ import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.databinding.ActivityLoginBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.main.MainActivity
+import com.bangkit2024.huetiful.ui.activity.resetpassword.ResetPasswordActivity
 import com.bangkit2024.huetiful.ui.activity.signup.SignUpActivity
 import kotlinx.coroutines.launch
 
@@ -47,6 +48,10 @@ class LoginActivity : AppCompatActivity() {
         binding.tvToSignup.setOnClickListener {
             val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
+        binding.btnResetPassword.setOnClickListener {
+            val intent = Intent(this@LoginActivity, ResetPasswordActivity::class.java)
             startActivity(intent)
         }
     }

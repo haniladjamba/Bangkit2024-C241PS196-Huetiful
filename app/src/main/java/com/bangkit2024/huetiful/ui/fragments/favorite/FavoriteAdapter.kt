@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,8 @@ class FavoriteAdapter : ListAdapter<PalateModel, FavoriteAdapter.MyViewHolder>(D
         private val circleImageView4 = binding.vColor4
         private val circleImageView5 = binding.vColor5
 
+        private val iFavorite = binding.iFavorite
+
         fun bind(data: PalateModel) {
             circleImageView1.setBackgroundColor(Color.parseColor(data.color1))
             circleImageView2.setBackgroundColor(Color.parseColor(data.color2))
@@ -37,10 +40,18 @@ class FavoriteAdapter : ListAdapter<PalateModel, FavoriteAdapter.MyViewHolder>(D
             circleImageView4.setBackgroundColor(Color.parseColor(data.color4))
             circleImageView5.setBackgroundColor(Color.parseColor(data.color5))
 
+            iFavorite.setOnClickListener {
+                makeToast("Icon favorite clicked")
+            }
+
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, ResultActivity::class.java)
                 itemView.context.startActivity(intent)
             }
+        }
+
+        private fun makeToast(message: String) {
+            Toast.makeText(itemView.context, message, Toast.LENGTH_SHORT).show()
         }
     }
 

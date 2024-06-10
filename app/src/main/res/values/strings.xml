@@ -44,7 +44,19 @@
     <string name="login_info">Please login to continue with your account</string>
     <string name="get_started_info">It\'s free and always will be</string>
     <string name="no_media_selected">No media selected</string>
-    <string name="error_opening_camera">Error opening camera</string>
+    <string name="error_opening_camera">canceling opening camera</string>
     <string name="cannot_find_image">Cannot find image</string>
     <string name="failed_register_account">Failed to register your account</string>
+    <string name="logout_info">Are you sure want to logout your account?</string>
+    <string name="cancel">Cancel</string>
+    <string name="email_verify_info">click on the email verification link sent to you on example@gmailcom</string>
+    <string name="email_verify">We have sent you an email</string>
+    <string name="email_verify_check">Didn’t receive the email yet?</string>
+    <string name="email_verify_resend">sent again</string>
+    <string name="next">Next</string>
+    <string name="open_email">Open email app</string>
+    <string name="password_reset_title">Forgot password?</string>
+    <string name="password_reset_info">Don’t worry we got you covered. Click the send button below. we will sent you a new password to example@gmail.com</string>
+    <string name="send">Send</string>
+    <string name="forgot_password">Forgot my password</string>
 </resources>
