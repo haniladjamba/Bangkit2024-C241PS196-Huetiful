@@ -3,20 +3,31 @@ package com.bangkit2024.huetiful.ui.activity.resetpassword
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
+import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.databinding.ActivityResetPasswordBinding
+import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.login.LoginActivity
 import com.bangkit2024.huetiful.ui.activity.main.MainActivity
 import com.bangkit2024.huetiful.ui.activity.signup.SignUpActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class ResetPasswordActivity : AppCompatActivity() {
 
+    private val resetPasswordViewModel by viewModels<ResetPasswordViewModel> {
+        AuthViewModelFactory.getInstance(this)
+    }
     private lateinit var binding: ActivityResetPasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +62,31 @@ class ResetPasswordActivity : AppCompatActivity() {
         binding.btnEmail.setOnClickListener {
             makeToast("open email app")
         }
-        binding.btnNext.setOnClickListener {
-            makeToast("verify user login credential")
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-        }
         binding.tvReset.setOnClickListener {
             makeToast("resend new password in email")
+
+            // uncomment when api service is available
+//            resetPassword()
         }
+    }
+
+    private fun resetPassword() {
+        val email = binding.edEmailResetPassword.text.toString()
+
+        lifecycleScope.launch {
+            resetPasswordViewModel.resetPassword(email)
+            resetPasswordViewModel.resetPasswordState.collect() { result ->
+                when (result) {
+                    is Result.Loading -> showLoading()
+                    is Result.Success -> makeToast(result.data)
+                    is Result.Error -> makeToast(result.error)
+                }
+            }
+        }
+    }
+
+    private fun showLoading() {
+        binding.pbResetPassword.isVisible = true
     }
 
     private fun makeToast(message: String) {

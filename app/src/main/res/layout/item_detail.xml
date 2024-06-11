@@ -6,6 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     app:cardElevation="0dp"
+    app:cardCornerRadius="15dp"
+    style="@style/CardBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +20,7 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -30,7 +33,7 @@
             android:layout_marginStart="14dp"
             android:textStyle="bold"
             android:textSize="19sp"
-            android:textColor="@color/black"
+            style="@style/TextColor"
             android:layout_marginTop="19dp"
             app:layout_constraintStart_toEndOf="@id/v_item_detail"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +46,7 @@
             android:layout_marginStart="14dp"
             android:textStyle="normal"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            style="@style/TextColor"
             android:layout_marginBottom="18dp"
             app:layout_constraintStart_toEndOf="@id/v_item_detail"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name"
@@ -51,10 +54,10 @@
         
         <ImageView
             android:id="@+id/i_copy_info"
-            android:src="@drawable/solar_copy_linear"
+            style="@style/CopyIconColor"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

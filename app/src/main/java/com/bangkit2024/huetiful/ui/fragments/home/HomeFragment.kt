@@ -14,7 +14,9 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.FragmentHomeBinding
@@ -81,7 +83,14 @@ class HomeFragment : Fragment() {
         }
         binding.btnAnalyze.setOnClickListener {
             val intent = Intent(requireContext(), ResultActivity::class.java)
-            startActivity(intent)
+            Log.d("HomeFragment", "image uri: $currentImageUri")
+            val optionCompact: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    requireActivity(),
+                    Pair(binding.ivPreviewImage, "itemImage")
+                )
+            intent.putExtra("itemImage", currentImageUri.toString())
+            startActivity(intent, optionCompact.toBundle())
         }
     }
 

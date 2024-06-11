@@ -4,6 +4,7 @@
     android:layout_height="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="15dp"
+    style="@style/CardBackground"
     app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,7 +13,7 @@
 
         <ImageView
             android:id="@+id/iv_door_logout"
-            android:src="@drawable/tabler_door_exit"
+            style="@style/LogoutIcon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="24dp"
@@ -28,6 +29,7 @@
             android:text="@string/logout_info"
             android:textSize="18sp"
             android:textAlignment="center"
+            style="@style/TextColor"
             app:layout_constraintTop_toBottomOf="@id/iv_door_logout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

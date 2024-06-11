@@ -2,6 +2,7 @@ package com.bangkit2024.huetiful.data.remote.retrofit
 
 import com.bangkit2024.huetiful.data.remote.response.LoginResponse
 import com.bangkit2024.huetiful.data.remote.response.RegisterResponse
+import com.bangkit2024.huetiful.data.remote.response.ResetPasswordResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -22,4 +23,10 @@ interface AuthApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ) : LoginResponse
+
+    @FormUrlEncoded
+    @POST("/api/reset-password/request-reset-password")
+    suspend fun resetPassword(
+        @Field("email") email: String
+    ) : ResetPasswordResponse
 }

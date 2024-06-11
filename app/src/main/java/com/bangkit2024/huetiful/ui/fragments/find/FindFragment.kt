@@ -15,7 +15,9 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.util.Pair
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.FragmentFindBinding
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
@@ -66,7 +68,14 @@ class FindFragment : Fragment() {
         }
         binding.btnAnalyzeFind.setOnClickListener {
             val intent = Intent(requireContext(), ResultActivity::class.java)
-            startActivity(intent)
+            Log.d("HomeFragment", "image uri: $currentImageUri")
+            val optionCompact: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    requireActivity(),
+                    Pair(binding.ivPreviewImageFind, "itemImage")
+                )
+            intent.putExtra("itemImage", currentImageUri.toString())
+            startActivity(intent, optionCompact.toBundle())
         }
     }
 

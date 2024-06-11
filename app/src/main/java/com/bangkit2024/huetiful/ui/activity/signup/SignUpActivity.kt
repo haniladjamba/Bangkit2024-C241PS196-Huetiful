@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
@@ -49,8 +52,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.tvToLogin.setOnClickListener {
             val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            val option = ActivityOptions.makeCustomAnimation(this, R.anim.fade, R.anim.fade_out)
-            startActivity(intent, option.toBundle())
+            startActivity(intent)
         }
     }
 

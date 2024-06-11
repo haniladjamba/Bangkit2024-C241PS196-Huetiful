@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="450dp"
         app:cardCornerRadius="24dp"
-        android:backgroundTint="@color/white_100"
+        style="@style/CardBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
                 android:text="@string/get_started"
                 android:textStyle="bold"
                 android:textSize="32sp"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 android:letterSpacing="0.03"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -46,7 +46,7 @@
                 android:text="@string/get_started_info"
                 android:textStyle="normal"
                 android:textSize="14sp"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 android:letterSpacing="0.03"
                 app:layout_constraintStart_toStartOf="@id/tv_signup_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_signup_title"/>
@@ -63,7 +63,8 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="14dp"
                 android:hint="@string/name"
-                app:hintTextColor="@color/red_700"
+                style="@style/EditTextColor"
+                app:hintAnimationEnabled="true"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintStart_toStartOf="@id/tv_signup_info"
                 app:layout_constraintTop_toBottomOf="@id/tv_signup_info" >
@@ -71,7 +72,7 @@
                     android:id="@+id/ed_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white" />
+                    style="@style/EditTextBackground" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -86,7 +87,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="8dp"
                 android:hint="@string/email"
-                app:hintTextColor="@color/red_700"
+                style="@style/EditTextColor"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintStart_toStartOf="@id/ed_name_layout"
                 app:layout_constraintTop_toBottomOf="@id/ed_name_layout"
@@ -95,7 +96,7 @@
                     android:id="@+id/ed_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white" />
+                    style="@style/EditTextBackground" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -110,7 +111,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="8dp"
                 android:hint="@string/password"
-                app:hintTextColor="@color/red_700"
+                style="@style/EditTextColor"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintStart_toStartOf="@id/ed_email_layout"
                 app:layout_constraintTop_toBottomOf="@id/ed_email_layout"
@@ -119,7 +120,8 @@
                     android:id="@+id/ed_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white" />
+                    android:inputType="textPassword"
+                    style="@style/EditTextBackground" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -211,7 +213,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:translationY="-60dp"/>
+        android:translationY="-90dp"/>
 
 
     <TextView
@@ -219,7 +221,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="@string/welcome_title"
         android:textColor="@color/black"
         android:textStyle="bold"

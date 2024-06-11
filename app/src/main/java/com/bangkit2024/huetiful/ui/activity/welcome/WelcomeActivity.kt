@@ -8,10 +8,13 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Window
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityWelcomeBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
@@ -29,8 +32,14 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
         supportActionBar?.hide()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         setSpanTvQuote()
         setupAnimation()

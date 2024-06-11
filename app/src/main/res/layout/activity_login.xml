@@ -10,13 +10,12 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_login"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="450dp"
         app:cardCornerRadius="24dp"
-        android:backgroundTint="@color/white_100"
+        style="@style/CardBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
         android:translationY="16dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +31,7 @@
                 android:text="@string/login"
                 android:textStyle="bold"
                 android:textSize="32sp"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 android:letterSpacing="0.03"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -46,7 +45,7 @@
                 android:text="@string/login_info"
                 android:textStyle="normal"
                 android:textSize="14sp"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 android:letterSpacing="0.03"
                 app:layout_constraintStart_toStartOf="@id/tv_login_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_login_title"/>
@@ -63,7 +62,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="28dp"
                 android:hint="@string/email"
-                app:hintTextColor="@color/red_700"
+                style="@style/EditTextColor"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintStart_toStartOf="@id/tv_login_info"
                 app:layout_constraintTop_toBottomOf="@id/tv_login_info" >
@@ -71,7 +70,7 @@
                     android:id="@+id/ed_email_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white" />
+                    style="@style/EditTextBackground" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -86,7 +85,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="8dp"
                 android:hint="@string/password"
-                app:hintTextColor="@color/red_700"
+                style="@style/EditTextColor"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintStart_toStartOf="@id/ed_login_layout"
                 app:layout_constraintTop_toBottomOf="@id/ed_login_layout" >
@@ -94,7 +93,8 @@
                     android:id="@+id/ed_password_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white" />
+                    android:inputType="textPassword"
+                    style="@style/EditTextBackground" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -159,7 +159,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_login">
@@ -169,6 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    style="@style/TextColor"
                     android:text="@string/dont_have_account"
                     app:layout_constraintTop_toBottomOf="@id/btn_login"
                     app:layout_constraintStart_toStartOf="parent"
@@ -201,14 +202,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:translationY="-60dp"/>
+        android:translationY="-90dp"/>
 
     <TextView
         android:id="@+id/tv_title_app_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="@string/welcome_title"
         android:textColor="@color/black"
         android:textStyle="bold"

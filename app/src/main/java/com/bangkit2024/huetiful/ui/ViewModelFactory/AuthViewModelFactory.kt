@@ -9,6 +9,7 @@ import com.bangkit2024.huetiful.data.repository.PreferenceRepository
 import com.bangkit2024.huetiful.data.repository.SettingPreferenceRepository
 import com.bangkit2024.huetiful.di.Injection
 import com.bangkit2024.huetiful.ui.activity.login.LoginViewModel
+import com.bangkit2024.huetiful.ui.activity.resetpassword.ResetPasswordViewModel
 import com.bangkit2024.huetiful.ui.activity.signup.SignUpViewModel
 import com.bangkit2024.huetiful.ui.activity.welcome.WelcomeViewModel
 import com.bangkit2024.huetiful.ui.fragments.settings.SettingsViewModel
@@ -33,6 +34,9 @@ class AuthViewModelFactory(
             }
             modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
                 SettingsViewModel(preferenceRepository, settingsPreferenceRepository) as T
+            }
+            modelClass.isAssignableFrom(ResetPasswordViewModel::class.java) -> {
+                ResetPasswordViewModel(authRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class: " + modelClass.name)
         }

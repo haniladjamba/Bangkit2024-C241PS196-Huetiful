@@ -2,6 +2,7 @@ package com.bangkit2024.huetiful.data.repository
 
 import com.bangkit2024.huetiful.data.remote.response.LoginResponse
 import com.bangkit2024.huetiful.data.remote.response.RegisterResponse
+import com.bangkit2024.huetiful.data.remote.response.ResetPasswordResponse
 import com.bangkit2024.huetiful.data.remote.retrofit.AuthApiService
 
 class AuthRepository private constructor(
@@ -13,6 +14,10 @@ class AuthRepository private constructor(
 
     suspend fun login(email: String, password: String) : LoginResponse {
         return authApiService.login(email, password)
+    }
+
+    suspend fun resetPassword(email: String) : ResetPasswordResponse {
+        return authApiService.resetPassword(email)
     }
 
     companion object {

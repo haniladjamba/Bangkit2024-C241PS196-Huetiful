@@ -15,7 +15,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintDimensionRatio="1:1"
-        android:backgroundTint="@color/white_100"
+        style="@style/CardBackground"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +26,8 @@
             android:layout_height="match_parent" >
 
             <ImageView
+                style="@style/BackButtonColor"
                 android:id="@+id/btn_back"
-                android:src="@drawable/baseline_arrow_forward_ios_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -38,7 +38,7 @@
 
             <ImageView
                 android:id="@+id/iv_email"
-                android:src="@drawable/line_md_email"
+                style="@style/EmailIconColor"
                 android:scaleType="centerCrop"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -56,7 +56,7 @@
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textSize="24sp"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 app:layout_constraintTop_toBottomOf="@id/iv_email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -72,7 +72,7 @@
                 android:textAlignment="center"
                 android:textStyle="normal"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                style="@style/TextColor"
                 app:layout_constraintTop_toBottomOf="@id/tv_email_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -95,7 +95,7 @@
                     android:textAlignment="center"
                     android:textStyle="normal"
                     android:textSize="16sp"
-                    android:textColor="@color/black"
+                    style="@style/TextColor"
                     app:layout_constraintTop_toBottomOf="@id/tv_email_info"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />

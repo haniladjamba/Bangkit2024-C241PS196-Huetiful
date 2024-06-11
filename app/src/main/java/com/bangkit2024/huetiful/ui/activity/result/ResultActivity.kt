@@ -1,7 +1,10 @@
 package com.bangkit2024.huetiful.ui.activity.result
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityResultBinding

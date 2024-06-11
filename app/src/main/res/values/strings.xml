@@ -56,7 +56,7 @@
     <string name="next">Next</string>
     <string name="open_email">Open email app</string>
     <string name="password_reset_title">Forgot password?</string>
-    <string name="password_reset_info">Don’t worry we got you covered. Click the send button below. we will sent you a new password to example@gmail.com</string>
+    <string name="password_reset_info">Don’t worry we got you covered. Please input your registered email below and click \' Send \'. we will sent you a new password</string>
     <string name="send">Send</string>
     <string name="forgot_password">Forgot my password</string>
 </resources>

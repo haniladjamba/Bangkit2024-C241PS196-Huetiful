@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
@@ -31,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
         // This code for removing the app bar
         // Remove later if end up using app bar
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
