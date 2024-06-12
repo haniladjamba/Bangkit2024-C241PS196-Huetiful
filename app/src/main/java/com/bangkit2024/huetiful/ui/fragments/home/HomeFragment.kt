@@ -23,6 +23,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.Result
+import com.bangkit2024.huetiful.data.local.model.DetailPalateModel
+import com.bangkit2024.huetiful.data.local.model.PalateModel
 import com.bangkit2024.huetiful.databinding.FragmentHomeBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.ViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
@@ -109,7 +111,7 @@ class HomeFragment : Fragment() {
 
     private fun predictPalate() {
         currentImageUri?.let { uri ->
-            val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+            val imageFile = uriToFile(uri, requireContext())
             Log.d(TAG_IMAGE_FILE, "showImage ${imageFile.path}")
 
             homeViewModel.predictPalate(imageFile)
@@ -121,6 +123,20 @@ class HomeFragment : Fragment() {
                         is Result.Success -> navigateToDetail()
                         is Result.Error -> showPredictPalateError(result.error)
                     }
+                }
+            }
+            homeViewModel.predictPalateResult.observe(requireActivity()) { palate ->
+                if (palate != null) {
+                    var palateModel: DetailPalateModel? = null
+                    palate.forEach {
+                        palateModel = it?.let { it1 ->
+                            DetailPalateModel(
+                                it1
+                            )
+                        }
+                    }
+                    Log.d(TAG, "palateModel : $palateModel")
+                    Log.d(TAG, "palateModel : $palate")
                 }
             }
         }
@@ -185,7 +201,7 @@ class HomeFragment : Fragment() {
     ) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
-            cropImage()
+//            cropImage()
             showImage()
         } else {
             Log.d("Photo picker", "No media selected")
@@ -205,6 +221,7 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
+        const val TAG = "HomeFragment"
         const val TAG_IMAGE_FILE = "Image file"
     }
 

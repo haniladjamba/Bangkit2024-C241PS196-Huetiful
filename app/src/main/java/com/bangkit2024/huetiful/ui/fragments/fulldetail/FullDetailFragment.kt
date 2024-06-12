@@ -71,19 +71,19 @@ class FullDetailFragment : Fragment() {
     private fun setupDummyData(): List<DetailPalateModel> {
         return listOf(
             DetailPalateModel(
-                color = "#C44F6B"
+                color = "#6e8eb4"
             ),
             DetailPalateModel(
-                color = "#FF859F"
+                color = "#d3a157"
             ),
             DetailPalateModel(
-                color = "#FFBCD5"
+                color = "#c57a39"
             ),
             DetailPalateModel(
-                color = "#F6D0C5"
+                color = "#44a6ab"
             ),
             DetailPalateModel(
-                color = "#FFBCD5"
+                color = "#c47b89"
             )
         )
     }

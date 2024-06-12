@@ -12,8 +12,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
+import okhttp3.MultipartBody.Part.Companion.create
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+
 
 class HomeViewModel(
 private val predictPalateRepository: PredictPalateRepository
@@ -35,11 +38,14 @@ private val predictPalateRepository: PredictPalateRepository
             _predictPalateState.value = Result.Loading
 
             val imageFile = file.asRequestBody("image/jpeg".toMediaType())
+            Log.d(TAG, "imageFile : $imageFile")
             val multipartBody = MultipartBody.Part.createFormData(
-                "photo",
+                "file",
                 file.name,
                 imageFile
             )
+
+            Log.d(TAG, "multipartBody : $multipartBody")
 
             try {
                 val predictPalateResponse = predictPalateRepository.predictPalate(multipartBody)
@@ -47,6 +53,8 @@ private val predictPalateRepository: PredictPalateRepository
                 if (predictPalateResponse != null) {
                     _predictPalateResult.value = predictPalateResponse.predictedPalette
                     _predictPalateState.emit(Result.Success("predictPalate : success"))
+                    Log.d(TAG,"predictPalate : $predictPalateResponse")
+                    Log.d(TAG,"predictPalate : ${predictPalateResponse.predictedPalette}")
                 } else {
                     _predictPalateResult.value = null
                     _predictPalateState.emit(Result.Error("predictPalate : error"))
