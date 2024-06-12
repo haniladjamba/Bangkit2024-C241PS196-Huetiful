@@ -17,15 +17,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
+import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.databinding.FragmentHomeBinding
+import com.bangkit2024.huetiful.ui.ViewModelFactory.ViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
 import com.bangkit2024.huetiful.ui.utils.getImageUri
+import com.bangkit2024.huetiful.ui.utils.reduceFileImage
+import com.bangkit2024.huetiful.ui.utils.uriToFile
 import com.yalantis.ucrop.UCrop
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
+    private val homeViewModel by viewModels<HomeViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
@@ -82,16 +94,48 @@ class HomeFragment : Fragment() {
             openCamera()
         }
         binding.btnAnalyze.setOnClickListener {
-            val intent = Intent(requireContext(), ResultActivity::class.java)
-            Log.d("HomeFragment", "image uri: $currentImageUri")
-            val optionCompact: ActivityOptionsCompat =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    requireActivity(),
-                    Pair(binding.ivPreviewImage, "itemImage")
-                )
-            intent.putExtra("itemImage", currentImageUri.toString())
-            startActivity(intent, optionCompact.toBundle())
+            predictPalate()
+//            val intent = Intent(requireContext(), ResultActivity::class.java)
+//            Log.d("HomeFragment", "image uri: $currentImageUri")
+//            val optionCompact: ActivityOptionsCompat =
+//                ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                    requireActivity(),
+//                    Pair(binding.ivPreviewImage, "itemImage")
+//                )
+//            intent.putExtra("itemImage", currentImageUri.toString())
+//            startActivity(intent, optionCompact.toBundle())
         }
+    }
+
+    private fun predictPalate() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+            Log.d(TAG_IMAGE_FILE, "showImage ${imageFile.path}")
+
+            homeViewModel.predictPalate(imageFile)
+
+            lifecycleScope.launch {
+                homeViewModel.predictPalateState.collect { result ->
+                    when (result) {
+                        is Result.Loading -> showLoading()
+                        is Result.Success -> navigateToDetail()
+                        is Result.Error -> showPredictPalateError(result.error)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showPredictPalateError(error: String) {
+        makeToast(error)
+    }
+
+    private fun navigateToDetail() {
+        makeToast("predict palate succes")
+    }
+
+    private fun showLoading() {
+        binding.pbHome.isVisible = true
     }
 
     private fun setTvTitle() {
@@ -158,6 +202,10 @@ class HomeFragment : Fragment() {
         } else {
             makeToast(getString(R.string.error_opening_camera))
         }
+    }
+
+    companion object {
+        const val TAG_IMAGE_FILE = "Image file"
     }
 
 }

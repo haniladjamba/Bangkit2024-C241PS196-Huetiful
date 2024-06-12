@@ -6,6 +6,7 @@ import com.bangkit2024.huetiful.data.pref.UserPreference
 import com.bangkit2024.huetiful.data.pref.datastore
 import com.bangkit2024.huetiful.data.remote.retrofit.ApiConfig
 import com.bangkit2024.huetiful.data.repository.AuthRepository
+import com.bangkit2024.huetiful.data.repository.PredictPalateRepository
 import com.bangkit2024.huetiful.data.repository.PreferenceRepository
 import com.bangkit2024.huetiful.data.repository.SettingPreferenceRepository
 
@@ -23,5 +24,10 @@ object Injection {
     fun provideAuthRepository() : AuthRepository {
         val authApiService = ApiConfig.getAuthApiService()
         return AuthRepository.getInstance(authApiService)
+    }
+
+    fun providePredictPalateRepository() : PredictPalateRepository {
+        val apiService = ApiConfig.getApiService()
+        return PredictPalateRepository.getInstance(apiService)
     }
 }
