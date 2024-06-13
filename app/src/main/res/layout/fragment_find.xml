@@ -46,7 +46,8 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_info_find" />
+        app:layout_constraintTop_toBottomOf="@id/tv_info_find"
+        android:transitionName="itemImage"/>
 
     <Button
         android:id="@+id/btn_gallery_find"

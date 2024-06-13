@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.data.remote.retrofit
 
+import com.bangkit2024.huetiful.data.remote.response.PredictPairResponse
 import com.bangkit2024.huetiful.data.remote.response.PredictPalateResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Multipart
@@ -13,5 +14,11 @@ interface ApiService {
     suspend fun predictPalate(
         @Part file: MultipartBody.Part
     ) : PredictPalateResponse
+
+    @Multipart
+    @POST("url")
+    suspend fun predictPair(
+        @Part file: MultipartBody.Part
+    ) : PredictPairResponse
 
 }

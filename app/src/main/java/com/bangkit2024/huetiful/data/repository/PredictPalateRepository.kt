@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.data.repository
 
+import com.bangkit2024.huetiful.data.remote.response.PredictPairResponse
 import com.bangkit2024.huetiful.data.remote.response.PredictPalateResponse
 import com.bangkit2024.huetiful.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
@@ -10,6 +11,10 @@ class PredictPalateRepository(
 
     suspend fun predictPalate(file: MultipartBody.Part) : PredictPalateResponse {
         return apiService.predictPalate(file)
+    }
+
+    suspend fun predictPair(file: MultipartBody.Part) : PredictPairResponse {
+        return apiService.predictPair(file)
     }
 
     companion object{

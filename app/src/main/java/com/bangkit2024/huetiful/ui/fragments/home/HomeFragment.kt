@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
     private val homeViewModel by viewModels<HomeViewModel> {
-        ViewModelFactory.getInstance(requireContext())
+        ViewModelFactory.getInstance()
     }
     private var _binding: FragmentHomeBinding? = null
 
@@ -97,15 +97,6 @@ class HomeFragment : Fragment() {
         }
         binding.btnAnalyze.setOnClickListener {
             predictPalate()
-//            val intent = Intent(requireContext(), ResultActivity::class.java)
-//            Log.d("HomeFragment", "image uri: $currentImageUri")
-//            val optionCompact: ActivityOptionsCompat =
-//                ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                    requireActivity(),
-//                    Pair(binding.ivPreviewImage, "itemImage")
-//                )
-//            intent.putExtra("itemImage", currentImageUri.toString())
-//            startActivity(intent, optionCompact.toBundle())
         }
     }
 
@@ -119,24 +110,19 @@ class HomeFragment : Fragment() {
             lifecycleScope.launch {
                 homeViewModel.predictPalateState.collect { result ->
                     when (result) {
-                        is Result.Loading -> showLoading()
-                        is Result.Success -> navigateToDetail()
-                        is Result.Error -> showPredictPalateError(result.error)
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> showLoading(false)
+                        is Result.Error -> {
+                            showPredictPalateError(result.error)
+                            showLoading(false)
+                        }
                     }
                 }
             }
             homeViewModel.predictPalateResult.observe(requireActivity()) { palate ->
                 if (palate != null) {
-                    var palateModel: DetailPalateModel? = null
-                    palate.forEach {
-                        palateModel = it?.let { it1 ->
-                            DetailPalateModel(
-                                it1
-                            )
-                        }
-                    }
-                    Log.d(TAG, "palateModel : $palateModel")
-                    Log.d(TAG, "palateModel : $palate")
+                    Log.d(TAG, "palate : $palate")
+                    navigateToDetail(palate)
                 }
             }
         }
@@ -146,12 +132,25 @@ class HomeFragment : Fragment() {
         makeToast(error)
     }
 
-    private fun navigateToDetail() {
-        makeToast("predict palate succes")
+    private fun navigateToDetail(palate: List<String?>) {
+        val intent = Intent(requireContext(), ResultActivity::class.java)
+        val bundle = Bundle()
+        val palateArrayList : ArrayList<String?> = palate.toCollection(ArrayList())
+        bundle.putStringArrayList("colorList", palateArrayList)
+        intent.putExtras(bundle)
+
+        val optionCompact: ActivityOptionsCompat =
+            ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(),
+                Pair(binding.ivPreviewImage, "itemImage")
+            )
+
+        intent.putExtra("itemImage", currentImageUri.toString())
+        startActivity(intent, optionCompact.toBundle())
     }
 
-    private fun showLoading() {
-        binding.pbHome.isVisible = true
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbHome.isVisible = isLoading
     }
 
     private fun setTvTitle() {
@@ -201,7 +200,7 @@ class HomeFragment : Fragment() {
     ) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
-//            cropImage()
+            cropImage()
             showImage()
         } else {
             Log.d("Photo picker", "No media selected")

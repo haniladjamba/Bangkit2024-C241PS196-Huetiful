@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class PredictPalateResponse(
 
+	@field:SerializedName("error")
+	val error: String? = null,
+
 	@field:SerializedName("predicted_palette")
 	val predictedPalette: List<String?>? = emptyList(),
 

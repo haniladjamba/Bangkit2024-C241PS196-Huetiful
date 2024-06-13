@@ -44,4 +44,5 @@
     <style name="EditTextBackground"><item name="backgroundTint">@color/white</item></style>
     <style name="EmailIconColor"><item name="android:src">@drawable/line_md_email</item></style>
     <style name="CopyIconColor"><item name="android:src">@drawable/solar_copy_linear</item></style>
+    <style name="ViewColor"><item name="android:background">@drawable/rounded_background</item></style>
 </resources>

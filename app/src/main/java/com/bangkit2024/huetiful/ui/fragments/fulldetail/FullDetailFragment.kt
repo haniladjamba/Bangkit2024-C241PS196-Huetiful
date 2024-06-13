@@ -86,5 +86,21 @@ class FullDetailFragment : Fragment() {
                 color = "#c47b89"
             )
         )
+//        val bundle = arguments
+//        if (bundle != null) {
+//            val colorArrayList = bundle.getStringArrayList("colorList")
+//            if (!colorArrayList.isNullOrEmpty()) {
+//                val data : List<String> = colorArrayList
+//                Log.d(TAG, "data : $data")
+//            } else {
+//                Log.d(TAG, "colorArrayList is empty : $colorArrayList")
+//            }
+//        } else {
+//            Log.d(TAG, "bundle is empty : $bundle")
+//        }
+    }
+
+    companion object {
+        const val TAG = "FullDetailFragment"
     }
 }

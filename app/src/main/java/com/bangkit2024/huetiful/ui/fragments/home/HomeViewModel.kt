@@ -38,31 +38,25 @@ private val predictPalateRepository: PredictPalateRepository
             _predictPalateState.value = Result.Loading
 
             val imageFile = file.asRequestBody("image/jpeg".toMediaType())
-            Log.d(TAG, "imageFile : $imageFile")
             val multipartBody = MultipartBody.Part.createFormData(
                 "file",
                 file.name,
                 imageFile
             )
 
-            Log.d(TAG, "multipartBody : $multipartBody")
-
             try {
                 val predictPalateResponse = predictPalateRepository.predictPalate(multipartBody)
 
-                if (predictPalateResponse != null) {
+                if (predictPalateResponse != null && predictPalateResponse.error == null) {
                     _predictPalateResult.value = predictPalateResponse.predictedPalette
                     _predictPalateState.emit(Result.Success("predictPalate : success"))
-                    Log.d(TAG,"predictPalate : $predictPalateResponse")
-                    Log.d(TAG,"predictPalate : ${predictPalateResponse.predictedPalette}")
                 } else {
                     _predictPalateResult.value = null
-                    _predictPalateState.emit(Result.Error("predictPalate : error"))
-                    Log.d(TAG, "predictPalate error : data null")
+                    _predictPalateState.emit(Result.Error("${predictPalateResponse.error}"))
                 }
             } catch (e: Exception) {
                 _predictPalateResult.value = null
-                _predictPalateState.emit(Result.Error("predictPalate error : ${e.message.toString()}"))
+                _predictPalateState.emit(Result.Error(e.message.toString()))
                 Log.d(TAG, "predictPalate error : ${e.message.toString()}")
             }
         }

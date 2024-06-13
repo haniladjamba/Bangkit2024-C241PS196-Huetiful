@@ -18,14 +18,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
+import com.bangkit2024.huetiful.data.Result
+import com.bangkit2024.huetiful.data.remote.response.PredictPairResponse
 import com.bangkit2024.huetiful.databinding.FragmentFindBinding
+import com.bangkit2024.huetiful.ui.ViewModelFactory.ViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
+import com.bangkit2024.huetiful.ui.activity.resultpair.ResultPairActivity
+import com.bangkit2024.huetiful.ui.fragments.home.HomeFragment
 import com.bangkit2024.huetiful.ui.utils.getImageUri
+import com.bangkit2024.huetiful.ui.utils.uriToFile
 import com.yalantis.ucrop.UCrop
+import kotlinx.coroutines.launch
 
 class FindFragment : Fragment() {
 
+    private val findViewModel by viewModels<FindViewModel> {
+        ViewModelFactory.getInstance()
+    }
     private var _binding: FragmentFindBinding? = null
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
@@ -67,16 +80,73 @@ class FindFragment : Fragment() {
             openCamera()
         }
         binding.btnAnalyzeFind.setOnClickListener {
-            val intent = Intent(requireContext(), ResultActivity::class.java)
-            Log.d("HomeFragment", "image uri: $currentImageUri")
-            val optionCompact: ActivityOptionsCompat =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    requireActivity(),
-                    Pair(binding.ivPreviewImageFind, "itemImage")
-                )
-            intent.putExtra("itemImage", currentImageUri.toString())
-            startActivity(intent, optionCompact.toBundle())
+            // uncomment when api service availabe
+//            predictPair()
+
+            val intent = Intent(requireContext(), ResultPairActivity::class.java)
+//            Log.d("HomeFragment", "image uri: $currentImageUri")
+//            val optionCompact: ActivityOptionsCompat =
+//                ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                    requireActivity(),
+//                    Pair(binding.ivPreviewImageFind, "itemImage")
+//                )
+//            intent.putExtra("itemImage", currentImageUri.toString())
+            startActivity(intent)
         }
+    }
+
+    private fun predictPair() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireContext())
+            Log.d(HomeFragment.TAG_IMAGE_FILE, "showImage ${imageFile.path}")
+
+            findViewModel.predictPair(imageFile)
+
+            lifecycleScope.launch {
+                findViewModel.predictPairState.collect { result ->
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> showLoading(false)
+                        is Result.Error -> {
+                            showPredictPairError(result.error)
+                            showLoading(false)
+                        }
+                    }
+                }
+            }
+            findViewModel.predictPairResult.observe(requireActivity()) { palate ->
+                if (palate != null) {
+                    Log.d(HomeFragment.TAG, "palate : $palate")
+                    navigateToResultPair(palate)
+                }
+            }
+        }
+    }
+
+    private fun navigateToResultPair(palate: PredictPairResponse) {
+        val intent = Intent(requireContext(), ResultPairActivity::class.java)
+        val bundle = Bundle()
+        val predicPair : PredictPairResponse = palate
+        bundle.putString("chosenColor", predicPair.chosenColor)
+        bundle.putString("predictedColor", predicPair.predictedColor)
+        intent.putExtras(bundle)
+
+//        val optionCompact: ActivityOptionsCompat =
+//            ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                requireActivity(),
+//                Pair(binding.ivPreviewImageFind, "itemImage")
+//            )
+//
+//        intent.putExtra("itemImage", currentImageUri.toString())
+        startActivity(intent)
+    }
+
+    private fun showPredictPairError(error: String) {
+        makeToast(error)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbFind.isVisible = isLoading
     }
 
     private fun setTvTitle() {
