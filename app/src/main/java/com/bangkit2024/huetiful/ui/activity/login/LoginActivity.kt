@@ -67,9 +67,15 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.login(email, password)
             loginViewModel.loginState.collect { result ->
                 when (result) {
-                    is Result.Loading -> showLoading()
-                    is Result.Success -> navigateToHome()
-                    is Result.Error -> showLoginError(result.error)
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        navigateToHome()
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        showLoginError(result.error)
+                    }
                 }
             }
         }
@@ -86,11 +92,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateToHome() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or  Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
-    private fun showLoading() {
-        binding.pbLogin.isVisible = true
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbLogin.isVisible = isLoading
     }
 
     companion object {

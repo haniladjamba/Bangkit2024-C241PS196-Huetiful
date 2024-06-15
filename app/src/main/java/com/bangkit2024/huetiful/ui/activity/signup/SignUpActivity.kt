@@ -45,9 +45,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.btnSignup.setOnClickListener {
-            // uncomment this line when api service is available
-//            registerUser()
-            navigateToVerifyEmail()
+            registerUser()
         }
         binding.tvToLogin.setOnClickListener {
             val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
@@ -65,9 +63,15 @@ class SignUpActivity : AppCompatActivity() {
             signUpViewModel.register(name, email, password)
             signUpViewModel.registerState.collect { result ->
                 when (result) {
-                    is Result.Loading -> showLoading()
-                    is Result.Success -> navigateToVerifyEmail()
-                    is Result.Error -> showRegistrationError(result.error)
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        navigateToVerifyEmail()
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        showRegistrationError(result.error)
+                    }
                 }
             }
         }
@@ -87,8 +91,8 @@ class SignUpActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showLoading() {
-        binding.pbSignup.isVisible = true
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbSignup.isVisible = isLoading
     }
 
     companion object {

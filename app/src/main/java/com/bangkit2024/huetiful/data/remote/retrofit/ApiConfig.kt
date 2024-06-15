@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.data.remote.retrofit
 
+import com.bangkit2024.huetiful.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -21,7 +22,7 @@ object ApiConfig {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL) // Store the base url in BuildConfig later
+            .baseUrl(BuildConfig.BASE_URL2) // Store the base url in BuildConfig later
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
