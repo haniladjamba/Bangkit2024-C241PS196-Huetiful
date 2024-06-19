@@ -62,4 +62,5 @@
     <string name="item_saved">item saved!</string>
     <string name="empty_favorite_item">Empty favorite item</string>
     <string name="image_must_not_be_empty">Image must not be empty</string>
+    <string name="white_hexsa">#FFFFFF</string>
 </resources>

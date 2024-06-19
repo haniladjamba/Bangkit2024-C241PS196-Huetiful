@@ -3,6 +3,7 @@ package com.bangkit2024.huetiful.ui.activity.result
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,7 @@ import com.bangkit2024.huetiful.ui.ViewModelFactory.FavoriteViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.main.MainActivity
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import java.lang.NumberFormatException
 
 class ResultActivity : AppCompatActivity() {
 
@@ -37,6 +39,7 @@ class ResultActivity : AppCompatActivity() {
         val dataColor = setupDataColor()
         setupAdapter(dataColor)
         showAnalyzeImage()
+        savedUserPalate()
     }
 
     private fun showAnalyzeImage() {
@@ -55,16 +58,22 @@ class ResultActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.iFavoriteFulldetail.setOnClickListener {
+            animatedFavoriteIcon()
             makeToast("Item saved")
-//            saveFavoriteItems()
+            saveFavoriteItems()
         }
         binding.btnBack.setOnClickListener {
             navigateToHome()
         }
     }
 
+    private fun animatedFavoriteIcon() {
+        binding.iFavoriteFulldetail.setImageResource(R.drawable.heart_animated)
+        val copyButtonAnim = binding.iFavoriteFulldetail.drawable as AnimatedVectorDrawable
+        copyButtonAnim.start()
+    }
+
     private fun navigateToHome() {
-        savedUserPalate()
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
@@ -79,8 +88,12 @@ class ResultActivity : AppCompatActivity() {
             val colorArrayList = bundle.getStringArrayList("colorList")
             if (!colorArrayList.isNullOrEmpty()) {
                 for (color in colorArrayList) {
-                    val hexColor = String.format("#%06X", 0xFFFFFF and Integer.parseInt(color.substring(1), 16))
-                    stringList.add("\'${hexColor.substring(1)}\'")
+                    try {
+                        val hexColor = String.format("#%06X", 0xFFFFFF and Integer.parseInt(color.substring(1), 16))
+                        stringList.add("\'${hexColor.substring(1)}\'")
+                    } catch (e: NumberFormatException) {
+                        stringList.add("'FFFFFF'")
+                    }
                 }
             }
         }
@@ -97,7 +110,16 @@ class ResultActivity : AppCompatActivity() {
         val extractedPalate = bundle?.getStringArrayList("colorList")
 
         if (extractedSkinTone != null && extractedPalate != null) {
-            resultViewModel.saveFavoritePalate(extractedSkinTone, extractedPalate)
+            val validatedPalette = extractedPalate.map { color ->
+                try {
+                    val hexColor = String.format("#%06X", 0xFFFFFF and Integer.parseInt(color.substring(1), 16))
+                    hexColor
+                } catch (e: NumberFormatException) {
+                    "#FFFFFF"
+                }
+            }
+
+            resultViewModel.saveFavoritePalate(extractedSkinTone, validatedPalette)
         }
         lifecycleScope.launch {
             resultViewModel.saveFavoriteState.collect { result ->

@@ -1,6 +1,7 @@
 package com.bangkit2024.huetiful.ui.fragments.favorite
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -55,8 +56,9 @@ class FavoriteFragment : Fragment() {
                 }
             }
         }
-        favoriteViewModel.favoriteData.observe(requireActivity()) { favoriteData ->
+        favoriteViewModel.favoriteData.observe(viewLifecycleOwner) { favoriteData ->
             if (favoriteData != null) {
+                Log.d("FavoriteFragment", "data : $favoriteData")
                 setupAdapter(favoriteData)
             }
         }
@@ -122,7 +124,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setupAdapter(palateModel: List<GetFavoriteDataResponseItem?>) {
-        val layoutManager = LinearLayoutManager(requireContext())
+        val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvFavorite.layoutManager = layoutManager
 
         val favoriteAdapter = FavoriteAdapter()

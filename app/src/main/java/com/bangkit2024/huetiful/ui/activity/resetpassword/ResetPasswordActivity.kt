@@ -63,8 +63,6 @@ class ResetPasswordActivity : AppCompatActivity() {
             makeToast("open email app")
         }
         binding.tvReset.setOnClickListener {
-            makeToast("resend new password in email")
-
             resetPassword()
         }
     }

@@ -1,6 +1,6 @@
 package com.bangkit2024.huetiful.data.remote.retrofit
 
-import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponse
+import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponseItem
 import com.bangkit2024.huetiful.data.remote.response.SaveFavoriteResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -17,5 +17,5 @@ interface FavoriteApiService {
     ) : SaveFavoriteResponse
 
     @GET("api/activities")
-    suspend fun getFavoriteData() : GetFavoriteDataResponse
+    suspend fun getFavoriteData() : List<GetFavoriteDataResponseItem>
 }

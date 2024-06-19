@@ -80,8 +80,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoginError(error: String) {
-        Log.d(TAG, "registration failed with error: $error")
-        showToast(getString(R.string.failed_register_account))
+        Log.d(TAG, "Login failed with error: $error")
+        showToast(error)
     }
 
     private fun showToast(message: String) {

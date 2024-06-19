@@ -5,13 +5,14 @@ import com.google.gson.annotations.SerializedName
 data class GetFavoriteDataResponse(
 
 	@field:SerializedName("GetFavoriteDataResponse")
-	val getFavoriteDataResponse: List<GetFavoriteDataResponseItem?>? = emptyList()
+	val getFavoriteDataResponse: List<GetFavoriteDataResponseItem> = emptyList()
+
 )
 
 data class GetFavoriteDataResponseItem(
 
 	@field:SerializedName("predicted_palette")
-	val predictedPalette: List<String>? = emptyList(),
+	val predictedPalette: String? = null,
 
 	@field:SerializedName("email_users")
 	val emailUsers: String? = null,

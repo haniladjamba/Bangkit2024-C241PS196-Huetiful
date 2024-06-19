@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit2024.huetiful.data.local.model.PalateModel
+import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponse
 import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponseItem
 import com.bangkit2024.huetiful.databinding.ItemFavoriteBinding
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
@@ -30,18 +33,21 @@ class FavoriteAdapter : ListAdapter<GetFavoriteDataResponseItem, FavoriteAdapter
 
     class MyViewHolder(private val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: GetFavoriteDataResponseItem) {
-            val predictedPalette = data.predictedPalette ?: emptyList()
+            Log.d("FavoriteAdapter", "palate : ${data.predictedPalette}")
+
+            val predictedPalette: List<String> = data.predictedPalette?.let { palette ->
+                palette.split(",").map { color ->
+                    color.trim().trim('[', ']', '"')
+                }
+            } ?: emptyList()
 
             binding.vColor1.setBackgroundColor(Color.parseColor(predictedPalette[0]))
             binding.vColor2.setBackgroundColor(Color.parseColor(predictedPalette[1]))
             binding.vColor3.setBackgroundColor(Color.parseColor(predictedPalette[2]))
             binding.vColor4.setBackgroundColor(Color.parseColor(predictedPalette[3]))
             binding.vColor5.setBackgroundColor(Color.parseColor(predictedPalette[4]))
-            binding.ivUpper.setBackgroundColor(Color.parseColor(data.extractedSkinTone))
 
-            binding.iFavorite.setOnClickListener {
-                makeToast("Icon favorite clicked")
-            }
+            binding.ivUpper.setBackgroundColor(Color.parseColor(data.extractedSkinTone))
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, ResultActivity::class.java)
@@ -58,10 +64,6 @@ class FavoriteAdapter : ListAdapter<GetFavoriteDataResponseItem, FavoriteAdapter
                     )
                 itemView.context.startActivity(intent, optionCompact.toBundle())
             }
-        }
-
-        private fun makeToast(message: String) {
-            Toast.makeText(itemView.context, message, Toast.LENGTH_SHORT).show()
         }
     }
 

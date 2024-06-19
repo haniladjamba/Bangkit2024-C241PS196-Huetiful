@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bangkit2024.huetiful.data.Result
-import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponse
 import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponseItem
 import com.bangkit2024.huetiful.data.repository.FavoriteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class FavoriteViewModel(
     private val favoriteRepository: FavoriteRepository
@@ -27,22 +27,22 @@ class FavoriteViewModel(
         viewModelScope.launch {
             _getFavoriteDataState.value = Result.Loading
 
+            Log.d(TAG, "attempting to getFavoriteDataResponse from api")
             try {
                 val getFavoriteDataResponse = favoriteRepository.getFavoriteData()
-
-                if (getFavoriteDataResponse.getFavoriteDataResponse?.isNotEmpty() == true) {
-                    Log.d(TAG, "saved item response : $getFavoriteDataResponse")
+                if (getFavoriteDataResponse != null) {
+                    _favoriteData.value = getFavoriteDataResponse
                     _getFavoriteDataState.emit(Result.Success("success retrieve data"))
-                    _favoriteData.value = getFavoriteDataResponse.getFavoriteDataResponse
+                    Log.d(TAG, "saved item response : $_favoriteData")
                 } else {
                     Log.d(TAG, "saved item response : $getFavoriteDataResponse")
                     _getFavoriteDataState.emit(Result.Error("no saved item found"))
-                    _favoriteData.value = emptyList()
+                    _favoriteData.value = null
                 }
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 Log.d(TAG, "exception : ${e.message.toString()}")
                 _getFavoriteDataState.emit(Result.Error("error : ${e.message.toString()}"))
-                _favoriteData.value = emptyList()
+                _favoriteData.value = null
             }
         }
     }
