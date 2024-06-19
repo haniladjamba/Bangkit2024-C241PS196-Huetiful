@@ -40,7 +40,6 @@ class UserPreference private constructor(private val datastore: DataStore<Prefer
 
         private var TOKEN_KEY = stringPreferencesKey("token")
         private var IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
-        private var IS_DARK_MODE = booleanPreferencesKey("isDarkModeActive")
 
         fun getInstance(datastore: DataStore<Preferences>) : UserPreference {
             return INSTANCE ?: synchronized(this) {

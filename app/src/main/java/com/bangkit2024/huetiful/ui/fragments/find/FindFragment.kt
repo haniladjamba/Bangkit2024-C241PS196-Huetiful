@@ -1,24 +1,24 @@
 package com.bangkit2024.huetiful.ui.fragments.find
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
@@ -26,18 +26,13 @@ import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.data.remote.response.PredictPairResponse
 import com.bangkit2024.huetiful.databinding.FragmentFindBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.ViewModelFactory
-import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
 import com.bangkit2024.huetiful.ui.activity.resultpair.ResultPairActivity
-import com.bangkit2024.huetiful.ui.fragments.home.HomeFragment
 import com.bangkit2024.huetiful.ui.utils.getImageUri
 import com.bangkit2024.huetiful.ui.utils.uriToFile
+import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.yalantis.ucrop.UCrop
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 class FindFragment : Fragment() {
 
@@ -52,10 +47,11 @@ class FindFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+        if (resultCode == Activity.RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             currentImageUri = data?.let { UCrop.getOutput(it) }
             showImage()
-        } else if (resultCode == UCrop.RESULT_ERROR) {
+        }
+        else if (resultCode == UCrop.RESULT_ERROR) {
             val cropError = data?.let { UCrop.getError(it) }
             makeToast(cropError?.message.toString())
         }
@@ -92,9 +88,11 @@ class FindFragment : Fragment() {
     private fun predictPair() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, requireContext())
-            Log.d(HomeFragment.TAG_IMAGE_FILE, "showImage ${imageFile.path}")
+            val sharedPreference = requireActivity().getSharedPreferences("user_palate_preference", Context.MODE_PRIVATE)
+            val jsonPalateString = sharedPreference.getString("current_palate", "")
+            val palateList = Gson().fromJson(jsonPalateString, Array<String>::class.java).toList()
 
-            findViewModel.predictPair(imageFile)
+            findViewModel.predictPair(imageFile, palateList)
 
             lifecycleScope.launch {
                 findViewModel.predictPairState.collect { result ->
@@ -110,7 +108,6 @@ class FindFragment : Fragment() {
             }
             findViewModel.predictPairResult.observe(requireActivity()) { palate ->
                 if (palate != null) {
-                    Log.d(HomeFragment.TAG, "palate : $palate")
                     navigateToResultPair(palate)
                 }
             }
@@ -120,9 +117,8 @@ class FindFragment : Fragment() {
     private fun navigateToResultPair(palate: PredictPairResponse) {
         val intent = Intent(requireContext(), ResultPairActivity::class.java)
         val bundle = Bundle()
-        val predictPair : PredictPairResponse = palate
-        bundle.putString("dominantColor", predictPair.dominantColor)
-        bundle.putString("predictedColor", predictPair.predictedColor)
+        bundle.putString("dominantColor", palate.dominantColor)
+        bundle.putString("predictedColor", palate.predictedColor)
         intent.putExtras(bundle)
 
         val optionCompact: ActivityOptionsCompat =
@@ -167,22 +163,19 @@ class FindFragment : Fragment() {
     }
 
     private fun showImage() {
-        currentImageUri.let {
-            Log.d("Image URI", "showImage: $it")
-            binding.ivPreviewImageFind.setImageURI(it)
-        }
+        currentImageUri?.let {
+            Glide.with(requireContext())
+                .load(it)
+                .into(binding.ivPreviewImageFind)
+        } ?: makeToast(getString(R.string.image_must_not_be_empty))
     }
 
     private fun cropImage() {
         destinationUri = getImageUri(requireContext())
-        currentImageUri.let {
-            if (it != null) {
-                UCrop.of(it, destinationUri!!)
-                    .start(requireActivity())
-            } else {
-                makeToast(getString(R.string.cannot_find_image))
-            }
-        }
+        currentImageUri?.let {
+            UCrop.of(it, destinationUri!!)
+                .start(requireContext(), this, UCrop.REQUEST_CROP);
+        } ?: makeToast(getString(R.string.cannot_find_image))
     }
 
     private val launcherGallery = registerForActivityResult(
@@ -193,7 +186,6 @@ class FindFragment : Fragment() {
             cropImage()
             showImage()
         } else {
-            Log.d("Photo picker", "No media selected")
             makeToast(getString(R.string.no_media_selected))
         }
     }

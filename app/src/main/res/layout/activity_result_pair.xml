@@ -43,7 +43,6 @@
 
     <androidx.cardview.widget.CardView
         android:onClick="expand2"
-        android:backgroundTint="@color/red_gray_100"
         android:id="@+id/cv_color2"
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -90,7 +89,6 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:backgroundTint="@color/red_700"
         android:onClick="expand"
         android:id="@+id/cv_color1"
         android:layout_width="match_parent"

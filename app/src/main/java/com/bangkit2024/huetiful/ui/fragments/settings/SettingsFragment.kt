@@ -1,6 +1,7 @@
 package com.bangkit2024.huetiful.ui.fragments.settings
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.utils.awaitFirstValue
 import com.bangkit2024.huetiful.databinding.FragmentSettingsBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
+import com.bangkit2024.huetiful.ui.activity.login.LoginActivity
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
@@ -92,6 +94,9 @@ class SettingsFragment : Fragment() {
         }
         btnConfirmLogout.setOnClickListener {
             settingsViewModel.logout()
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
 
         dialog.show()

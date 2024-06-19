@@ -32,6 +32,7 @@ import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
 import com.bangkit2024.huetiful.ui.utils.getImageUri
 import com.bangkit2024.huetiful.ui.utils.reduceFileImage
 import com.bangkit2024.huetiful.ui.utils.uriToFile
+import com.bumptech.glide.Glide
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -179,10 +180,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun showImage() {
-        currentImageUri.let {
-            Log.d("Image URI", "showImage: $it")
-            binding.ivPreviewImage.setImageURI(it)
-        }
+        currentImageUri?.let {
+            Glide.with(requireContext())
+                .load(it)
+                .into(binding.ivPreviewImage)
+        } ?: makeToast(getString(R.string.image_must_not_be_empty))
     }
 
     private fun cropImage() {
@@ -190,7 +192,7 @@ class HomeFragment : Fragment() {
         currentImageUri.let {
             if (it != null) {
                 UCrop.of(it, destinationUri!!)
-                    .start(requireActivity())
+                    .start(requireContext(), this, UCrop.REQUEST_CROP)
             } else {
                 makeToast(getString(R.string.cannot_find_image))
             }

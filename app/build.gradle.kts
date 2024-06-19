@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.okhttp)
+    implementation(libs.glide)
     androidTestImplementation(libs.okhttp3.okhttp.tls)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

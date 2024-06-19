@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.ui.activity.result
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -17,6 +18,7 @@ import com.bangkit2024.huetiful.data.local.model.DetailPalateModel
 import com.bangkit2024.huetiful.databinding.ActivityResultBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.FavoriteViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.main.MainActivity
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class ResultActivity : AppCompatActivity() {
@@ -57,10 +59,35 @@ class ResultActivity : AppCompatActivity() {
 //            saveFavoriteItems()
         }
         binding.btnBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
+            navigateToHome()
         }
+    }
+
+    private fun navigateToHome() {
+        savedUserPalate()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+    }
+
+    private fun savedUserPalate() {
+        val intent = intent
+        val bundle = intent.extras
+        val stringList = mutableListOf<String>()
+
+        if (bundle != null) {
+            val colorArrayList = bundle.getStringArrayList("colorList")
+            if (!colorArrayList.isNullOrEmpty()) {
+                for (color in colorArrayList) {
+                    val hexColor = String.format("#%06X", 0xFFFFFF and Integer.parseInt(color.substring(1), 16))
+                    stringList.add("\'${hexColor.substring(1)}\'")
+                }
+            }
+        }
+
+        val jsonString = Gson().toJson(stringList)
+        val sharedPreferences = getSharedPreferences("user_palate_preference", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putString("current_palate", jsonString).apply()
     }
 
     private fun saveFavoriteItems() {
@@ -70,7 +97,6 @@ class ResultActivity : AppCompatActivity() {
         val extractedPalate = bundle?.getStringArrayList("colorList")
 
         if (extractedSkinTone != null && extractedPalate != null) {
-            Log.d("ResultActivity", "attempting to save : skinTone : $extractedSkinTone,  palate : $extractedPalate")
             resultViewModel.saveFavoritePalate(extractedSkinTone, extractedPalate)
         }
         lifecycleScope.launch {

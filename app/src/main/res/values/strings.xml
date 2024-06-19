@@ -61,4 +61,5 @@
     <string name="forgot_password">Forgot my password</string>
     <string name="item_saved">item saved!</string>
     <string name="empty_favorite_item">Empty favorite item</string>
+    <string name="image_must_not_be_empty">Image must not be empty</string>
 </resources>

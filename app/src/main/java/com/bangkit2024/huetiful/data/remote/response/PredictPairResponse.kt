@@ -10,7 +10,7 @@ data class PredictPairResponse(
 	@field:SerializedName("error")
 	val error: String? = null,
 
-	@field:SerializedName("chosen_color")
+	@field:SerializedName("dominant_color")
 	val dominantColor: String? = null,
 
 	@field:SerializedName("predicted_color")

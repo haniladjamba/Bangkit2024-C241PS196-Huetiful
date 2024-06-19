@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.ui.activity.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import androidx.activity.enableEdgeToEdge
@@ -16,6 +17,7 @@ import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityMainBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.fragments.settings.SettingsViewModel
+import com.yalantis.ucrop.UCrop
 
 class MainActivity : AppCompatActivity() {
 

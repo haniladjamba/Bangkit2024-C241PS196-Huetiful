@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class FindViewModel(
@@ -28,10 +29,11 @@ class FindViewModel(
     private val _predictPairResult = MutableLiveData<PredictPairResponse?>()
     val predictPairResult: LiveData<PredictPairResponse?> = _predictPairResult
 
-    fun predictPair(file: File) {
+    fun predictPair(file: File, palateList: List<String>) {
         viewModelScope.launch {
             _predictPairState.value = Result.Loading
 
+            val requestBody = palateList.toString().toRequestBody("text/plain".toMediaType())
             val imageFile = file.asRequestBody("image/jpeg".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
                 "image",
@@ -40,7 +42,7 @@ class FindViewModel(
             )
 
             try {
-                val predictPairResponse = predictPairRepository.predictPair(multipartBody)
+                val predictPairResponse = predictPairRepository.predictPair(multipartBody, requestBody)
 
                 withContext(Dispatchers.Main) {
                     if (predictPairResponse != null && predictPairResponse.error == null) {

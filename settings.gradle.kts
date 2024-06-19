@@ -24,5 +24,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "HueTiful"
+
 include(":app")
 include(":ucrop")

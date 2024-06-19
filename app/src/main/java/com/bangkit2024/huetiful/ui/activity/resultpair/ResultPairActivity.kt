@@ -7,11 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityResultPairBinding
 import com.bangkit2024.huetiful.ui.activity.main.MainActivity
 
@@ -42,8 +38,8 @@ class ResultPairActivity : AppCompatActivity() {
 
         binding.tvColorInfoMain.text = dominantColor
         binding.tvColorInfoMain.setTextColor(Color.parseColor(dominantColor))
-        binding.cvColor1.setBackgroundColor(Color.parseColor(dominantColor))
-        binding.cvColor2.setBackgroundColor(Color.parseColor(predictedColor))
+        binding.cvColor1.setCardBackgroundColor(Color.parseColor(dominantColor))
+        binding.cvColor2.setCardBackgroundColor(Color.parseColor(predictedColor))
         binding.tvColor1.text = dominantColor
         binding.tvColor2.text = predictedColor
         binding.tvColor1.setTextColor(Color.parseColor(dominantColor))
