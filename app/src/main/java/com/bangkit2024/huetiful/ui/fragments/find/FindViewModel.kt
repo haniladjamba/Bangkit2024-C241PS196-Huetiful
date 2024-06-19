@@ -7,17 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.data.remote.response.PredictPairResponse
-import com.bangkit2024.huetiful.data.repository.PredictPalateRepository
+import com.bangkit2024.huetiful.data.repository.PredictPairRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class FindViewModel(
-    private val predictPalateRepository: PredictPalateRepository
+    private val predictPairRepository: PredictPairRepository
 ) : ViewModel() {
 
     private val _predictPairState = MutableStateFlow<Result<String>>(Result.Loading)
@@ -32,25 +34,29 @@ class FindViewModel(
 
             val imageFile = file.asRequestBody("image/jpeg".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
-                "file",
+                "image",
                 file.name,
                 imageFile
             )
 
             try {
-                val predictPairResponse = predictPalateRepository.predictPair(multipartBody)
+                val predictPairResponse = predictPairRepository.predictPair(multipartBody)
 
-                if (predictPairResponse != null && predictPairResponse.error == null) {
-                    _predictPairResult.value = predictPairResponse
-                    _predictPairState.emit(Result.Success("predict pair : success"))
-                } else {
-                    _predictPairState.emit(Result.Error(predictPairResponse.error.toString()))
-                    _predictPairResult.value = null
+                withContext(Dispatchers.Main) {
+                    if (predictPairResponse != null && predictPairResponse.error == null) {
+                        _predictPairResult.value = predictPairResponse
+                        _predictPairState.emit(Result.Success("predict pair : success"))
+                    } else {
+                        _predictPairState.emit(Result.Error(predictPairResponse.error.toString()))
+                        _predictPairResult.value = null
+                    }
                 }
             } catch (e: Exception) {
-                _predictPairState.emit(Result.Error(e.message.toString()))
-                _predictPairResult.value = null
-                Log.d(TAG, "predictPair error : ${e.message.toString()}")
+                withContext(Dispatchers.Main) {
+                    _predictPairState.emit(Result.Error(e.message.toString()))
+                    _predictPairResult.value = null
+                    Log.d(TAG, "predictPair error : ${e.message.toString()}")
+                }
             }
         }
     }

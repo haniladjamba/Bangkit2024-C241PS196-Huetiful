@@ -8,7 +8,7 @@ data class PredictPalateResponse(
 	val error: String? = null,
 
 	@field:SerializedName("predicted_palette")
-	val predictedPalette: List<String?>? = emptyList(),
+	val predictedPalette: List<String?> = emptyList(),
 
 	@field:SerializedName("extracted_skin_tone")
 	val extractedSkinTone: String? = null

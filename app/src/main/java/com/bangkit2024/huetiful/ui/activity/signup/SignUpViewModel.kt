@@ -22,6 +22,7 @@ class SignUpViewModel(
         viewModelScope.launch {
             _registerState.value = Result.Loading
             try {
+                Log.d(TAG, "email : $email")
                 val registerResponse = authRepository.register(name, email, password)
                 if (registerResponse.status == "success") {
                     _registerState.emit(Result.Success(registerResponse.message))

@@ -25,6 +25,7 @@ import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.data.local.model.DetailPalateModel
 import com.bangkit2024.huetiful.data.local.model.PalateModel
+import com.bangkit2024.huetiful.data.remote.response.PredictPalateResponse
 import com.bangkit2024.huetiful.databinding.FragmentHomeBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.ViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
@@ -132,11 +133,12 @@ class HomeFragment : Fragment() {
         makeToast(error)
     }
 
-    private fun navigateToDetail(palate: List<String?>) {
+    private fun navigateToDetail(palateResponse: PredictPalateResponse) {
         val intent = Intent(requireContext(), ResultActivity::class.java)
         val bundle = Bundle()
-        val palateArrayList : ArrayList<String?> = palate.toCollection(ArrayList())
+        val palateArrayList : ArrayList<String?> = palateResponse.predictedPalette.toCollection(ArrayList())
         bundle.putStringArrayList("colorList", palateArrayList)
+        bundle.putString("extractedSkinTone", palateResponse.extractedSkinTone)
         intent.putExtras(bundle)
 
         val optionCompact: ActivityOptionsCompat =

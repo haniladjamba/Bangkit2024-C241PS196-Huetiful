@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.data.repository
 
+import android.util.Log
 import com.bangkit2024.huetiful.data.remote.response.LoginResponse
 import com.bangkit2024.huetiful.data.remote.response.RegisterResponse
 import com.bangkit2024.huetiful.data.remote.response.ResetPasswordResponse
@@ -9,6 +10,7 @@ class AuthRepository private constructor(
     private val authApiService: AuthApiService
 ){
     suspend fun register(name: String, email: String, password: String) : RegisterResponse {
+        Log.d("repository", "email: $email")
         return authApiService.register(name, email, password)
     }
 

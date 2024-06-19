@@ -1,17 +1,15 @@
 package com.bangkit2024.huetiful.data.remote.retrofit
 
 import com.bangkit2024.huetiful.BuildConfig
+import okhttp3.ConnectionPool
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-
-    // not actual base url
-    // change later
-    var BASE_URL = "https://capstone-uwrmimd5cq-et.a.run.app/"
 
     fun getAuthApiService() : AuthApiService {
         // @best-practice
@@ -22,26 +20,56 @@ object ApiConfig {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL2) // Store the base url in BuildConfig later
+            .baseUrl(BuildConfig.BASE_URL_AUTH)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
         return retrofit.create(AuthApiService::class.java)
     }
 
-    fun getApiService() : ApiService {
+    fun getApiService(baseUrl: String) : ApiService {
         // @best-practice
         // change logging interceptor to only shown in debugging mode later
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .connectionPool(ConnectionPool(10, 5, TimeUnit.MINUTES))
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .callTimeout(60, TimeUnit.SECONDS)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL) // Store the base url in BuildConfig later
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
         return retrofit.create(ApiService::class.java)
+    }
+
+    fun getFavoriteApiService(token: String) : FavoriteApiService {
+        // @best-practice
+        // change logging interceptor to only shown in debugging mode later
+        val loggingInterceptor =
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        val authInterceptor = Interceptor { chain ->
+            val req = chain.request()
+            val requestHeaders = req.newBuilder()
+                .addHeader("Authorization", "Bearer $token")
+                .build()
+            chain.proceed(requestHeaders)
+        }
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL_AUTH)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(FavoriteApiService::class.java)
     }
 }

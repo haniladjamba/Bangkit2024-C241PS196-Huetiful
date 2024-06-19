@@ -96,6 +96,7 @@
                     android:id="@+id/ed_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
                     style="@style/EditTextBackground" />
             </com.google.android.material.textfield.TextInputLayout>
 

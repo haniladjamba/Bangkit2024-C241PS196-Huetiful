@@ -32,7 +32,12 @@ import com.bangkit2024.huetiful.ui.fragments.home.HomeFragment
 import com.bangkit2024.huetiful.ui.utils.getImageUri
 import com.bangkit2024.huetiful.ui.utils.uriToFile
 import com.yalantis.ucrop.UCrop
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class FindFragment : Fragment() {
 
@@ -80,18 +85,7 @@ class FindFragment : Fragment() {
             openCamera()
         }
         binding.btnAnalyzeFind.setOnClickListener {
-            // uncomment when api service availabe
-//            predictPair()
-
-            val intent = Intent(requireContext(), ResultPairActivity::class.java)
-//            Log.d("HomeFragment", "image uri: $currentImageUri")
-//            val optionCompact: ActivityOptionsCompat =
-//                ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                    requireActivity(),
-//                    Pair(binding.ivPreviewImageFind, "itemImage")
-//                )
-//            intent.putExtra("itemImage", currentImageUri.toString())
-            startActivity(intent)
+            predictPair()
         }
     }
 
@@ -108,8 +102,8 @@ class FindFragment : Fragment() {
                         is Result.Loading -> showLoading(true)
                         is Result.Success -> showLoading(false)
                         is Result.Error -> {
-                            showPredictPairError(result.error)
                             showLoading(false)
+                            showPredictPairError(result.error)
                         }
                     }
                 }
@@ -126,19 +120,19 @@ class FindFragment : Fragment() {
     private fun navigateToResultPair(palate: PredictPairResponse) {
         val intent = Intent(requireContext(), ResultPairActivity::class.java)
         val bundle = Bundle()
-        val predicPair : PredictPairResponse = palate
-        bundle.putString("chosenColor", predicPair.chosenColor)
-        bundle.putString("predictedColor", predicPair.predictedColor)
+        val predictPair : PredictPairResponse = palate
+        bundle.putString("dominantColor", predictPair.dominantColor)
+        bundle.putString("predictedColor", predictPair.predictedColor)
         intent.putExtras(bundle)
 
-//        val optionCompact: ActivityOptionsCompat =
-//            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                requireActivity(),
-//                Pair(binding.ivPreviewImageFind, "itemImage")
-//            )
-//
-//        intent.putExtra("itemImage", currentImageUri.toString())
-        startActivity(intent)
+        val optionCompact: ActivityOptionsCompat =
+            ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(),
+                Pair(binding.ivPreviewImageFind, "itemImage")
+            )
+
+        intent.putExtra("itemImage", currentImageUri.toString())
+        startActivity(intent, optionCompact.toBundle())
     }
 
     private fun showPredictPairError(error: String) {

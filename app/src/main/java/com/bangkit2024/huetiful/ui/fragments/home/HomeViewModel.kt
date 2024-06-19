@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bangkit2024.huetiful.data.Result
+import com.bangkit2024.huetiful.data.remote.response.PredictPalateResponse
 import com.bangkit2024.huetiful.data.repository.PredictPalateRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,8 +31,8 @@ private val predictPalateRepository: PredictPalateRepository
     private val _predictPalateState = MutableStateFlow<Result<String>>(Result.Loading)
     val predictPalateState: StateFlow<Result<String>> = _predictPalateState
 
-    private val _predictPalateResult = MutableLiveData<List<String?>?>()
-    val predictPalateResult: LiveData<List<String?>?> = _predictPalateResult
+    private val _predictPalateResult = MutableLiveData<PredictPalateResponse>()
+    val predictPalateResult: LiveData<PredictPalateResponse> = _predictPalateResult
 
     fun predictPalate(file: File) {
         viewModelScope.launch {
@@ -48,7 +49,7 @@ private val predictPalateRepository: PredictPalateRepository
                 val predictPalateResponse = predictPalateRepository.predictPalate(multipartBody)
 
                 if (predictPalateResponse != null && predictPalateResponse.error == null) {
-                    _predictPalateResult.value = predictPalateResponse.predictedPalette
+                    _predictPalateResult.value = predictPalateResponse
                     _predictPalateState.emit(Result.Success("predictPalate : success"))
                 } else {
                     _predictPalateResult.value = null

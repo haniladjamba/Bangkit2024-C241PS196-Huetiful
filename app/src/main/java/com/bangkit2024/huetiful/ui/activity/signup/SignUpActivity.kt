@@ -57,6 +57,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun registerUser() {
         val name = binding.edName.text.toString()
         val email = binding.edEmail.text.toString()
+        Log.d(TAG, "input email: $email")
         val password = binding.edPassword.text.toString()
 
         lifecycleScope.launch {

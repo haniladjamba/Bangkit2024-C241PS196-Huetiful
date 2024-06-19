@@ -44,9 +44,8 @@ class WelcomeActivity : AppCompatActivity() {
         setSpanTvQuote()
         setupAnimation()
         checkTheme()
-        // remove this comment when api is available
-//        checkSession()
         setupAction()
+        checkSession()
     }
 
     private fun checkTheme() {

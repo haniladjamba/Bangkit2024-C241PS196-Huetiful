@@ -44,9 +44,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.btnLogin.setOnClickListener {
-            // uncomment this line whe api service available
-//            userLogin()
-            navigateToHome()
+            userLogin()
         }
         binding.tvToSignup.setOnClickListener {
             val intent = Intent(this@LoginActivity, SignUpActivity::class.java)

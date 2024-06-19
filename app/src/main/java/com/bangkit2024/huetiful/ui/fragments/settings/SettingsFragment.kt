@@ -11,10 +11,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
+import com.bangkit2024.huetiful.data.utils.awaitFirstValue
 import com.bangkit2024.huetiful.databinding.FragmentSettingsBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
 
@@ -43,12 +46,17 @@ class SettingsFragment : Fragment() {
     }
 
     private fun observeSwitchStatus() {
-        settingsViewModel.getThemeSetting().observe(requireActivity()) { isDarkMode: Boolean ->
-            if (isDarkMode) {
-                binding.swChangeTheme.isChecked = true
-            } else {
-                binding.swChangeTheme.isChecked = false
-            }
+//        settingsViewModel.getThemeSetting().observe(requireActivity()) { isDarkMode: Boolean ->
+//            if (isDarkMode) {
+//                binding.swChangeTheme.isChecked = true
+//            } else {
+//                binding.swChangeTheme.isChecked = false
+//            }
+//        }
+        lifecycleScope.launch {
+            val isDarkMode = settingsViewModel.getThemeSetting().awaitFirstValue()
+            isDarkMode?.let { binding.swChangeTheme.isChecked = it }
+
         }
     }
 
@@ -83,11 +91,7 @@ class SettingsFragment : Fragment() {
             dialog.dismiss()
         }
         btnConfirmLogout.setOnClickListener {
-            makeToast("user logout")
-            // uncomment when api service is available
-//        binding.btnLogout.setOnClickListener {
-//            settingsViewModel.logout()
-//        }
+            settingsViewModel.logout()
         }
 
         dialog.show()

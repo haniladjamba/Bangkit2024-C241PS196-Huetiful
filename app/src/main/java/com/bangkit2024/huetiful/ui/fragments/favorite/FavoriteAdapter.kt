@@ -1,18 +1,23 @@
 package com.bangkit2024.huetiful.ui.fragments.favorite
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit2024.huetiful.data.local.model.PalateModel
+import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponseItem
 import com.bangkit2024.huetiful.databinding.ItemFavoriteBinding
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
 
-class FavoriteAdapter : ListAdapter<PalateModel, FavoriteAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class FavoriteAdapter : ListAdapter<GetFavoriteDataResponseItem, FavoriteAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,30 +28,35 @@ class FavoriteAdapter : ListAdapter<PalateModel, FavoriteAdapter.MyViewHolder>(D
         holder.bind(getItem(position))
     }
 
-    class MyViewHolder(binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: GetFavoriteDataResponseItem) {
+            val predictedPalette = data.predictedPalette ?: emptyList()
 
-        private val circleImageView1 = binding.vColor1
-        private val circleImageView2 = binding.vColor2
-        private val circleImageView3 = binding.vColor3
-        private val circleImageView4 = binding.vColor4
-        private val circleImageView5 = binding.vColor5
+            binding.vColor1.setBackgroundColor(Color.parseColor(predictedPalette[0]))
+            binding.vColor2.setBackgroundColor(Color.parseColor(predictedPalette[1]))
+            binding.vColor3.setBackgroundColor(Color.parseColor(predictedPalette[2]))
+            binding.vColor4.setBackgroundColor(Color.parseColor(predictedPalette[3]))
+            binding.vColor5.setBackgroundColor(Color.parseColor(predictedPalette[4]))
+            binding.ivUpper.setBackgroundColor(Color.parseColor(data.extractedSkinTone))
 
-        private val iFavorite = binding.iFavorite
-
-        fun bind(data: PalateModel) {
-            circleImageView1.setBackgroundColor(Color.parseColor(data.color1))
-            circleImageView2.setBackgroundColor(Color.parseColor(data.color2))
-            circleImageView3.setBackgroundColor(Color.parseColor(data.color3))
-            circleImageView4.setBackgroundColor(Color.parseColor(data.color4))
-            circleImageView5.setBackgroundColor(Color.parseColor(data.color5))
-
-            iFavorite.setOnClickListener {
+            binding.iFavorite.setOnClickListener {
                 makeToast("Icon favorite clicked")
             }
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, ResultActivity::class.java)
-                itemView.context.startActivity(intent)
+                val bundle = Bundle()
+                val palateArrayList = predictedPalette.toCollection(ArrayList())
+                bundle.putStringArrayList("colorList", palateArrayList)
+                bundle.putString("extractedSkinTone", data.extractedSkinTone)
+                intent.putExtras(bundle)
+
+                val optionCompact: ActivityOptionsCompat =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        itemView.context as Activity,
+                        Pair(binding.ivUpper, "itemImage")
+                    )
+                itemView.context.startActivity(intent, optionCompact.toBundle())
             }
         }
 
@@ -56,17 +66,17 @@ class FavoriteAdapter : ListAdapter<PalateModel, FavoriteAdapter.MyViewHolder>(D
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PalateModel>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<GetFavoriteDataResponseItem>() {
             override fun areItemsTheSame(
-                oldItem: PalateModel,
-                newItem: PalateModel
+                oldItem: GetFavoriteDataResponseItem,
+                newItem: GetFavoriteDataResponseItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: PalateModel,
-                newItem: PalateModel
+                oldItem: GetFavoriteDataResponseItem,
+                newItem: GetFavoriteDataResponseItem
             ): Boolean {
                 return oldItem == newItem
             }

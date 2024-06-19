@@ -16,7 +16,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String","BASE_URL2", "\"http//35.219.99.255:5000/\"")
+        buildConfigField("String","BASE_URL_AUTH", "\"http://35.219.99.255:5000/\"")
+        buildConfigField("String","BASE_URL_MODEL1", "\"https://capstone-uwrmimd5cq-et.a.run.app/\"")
+        buildConfigField("String","BASE_URL_MODEL2", "\"https://capstone-model-2-uwrmimd5cq-et.a.run.app/\"")
     }
 
     buildTypes {
@@ -59,6 +61,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.okhttp)
     androidTestImplementation(libs.okhttp3.okhttp.tls)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

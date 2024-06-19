@@ -59,4 +59,6 @@
     <string name="password_reset_info">Don’t worry we got you covered. Please input your registered email below and click \' Send \'. we will sent you a new password</string>
     <string name="send">Send</string>
     <string name="forgot_password">Forgot my password</string>
+    <string name="item_saved">item saved!</string>
+    <string name="empty_favorite_item">Empty favorite item</string>
 </resources>

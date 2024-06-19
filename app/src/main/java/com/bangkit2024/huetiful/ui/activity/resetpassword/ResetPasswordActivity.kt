@@ -65,8 +65,7 @@ class ResetPasswordActivity : AppCompatActivity() {
         binding.tvReset.setOnClickListener {
             makeToast("resend new password in email")
 
-            // uncomment when api service is available
-//            resetPassword()
+            resetPassword()
         }
     }
 
@@ -75,18 +74,24 @@ class ResetPasswordActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             resetPasswordViewModel.resetPassword(email)
-            resetPasswordViewModel.resetPasswordState.collect() { result ->
+            resetPasswordViewModel.resetPasswordState.collect { result ->
                 when (result) {
-                    is Result.Loading -> showLoading()
-                    is Result.Success -> makeToast(result.data)
-                    is Result.Error -> makeToast(result.error)
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        makeToast(result.data)
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        makeToast(result.error)
+                    }
                 }
             }
         }
     }
 
-    private fun showLoading() {
-        binding.pbResetPassword.isVisible = true
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbResetPassword.isVisible = isLoading
     }
 
     private fun makeToast(message: String) {

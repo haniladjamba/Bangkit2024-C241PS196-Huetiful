@@ -13,10 +13,6 @@ class PredictPalateRepository(
         return apiService.predictPalate(file)
     }
 
-    suspend fun predictPair(file: MultipartBody.Part) : PredictPairResponse {
-        return apiService.predictPair(file)
-    }
-
     companion object{
         @Volatile
         private var INSTANCE: PredictPalateRepository? = null

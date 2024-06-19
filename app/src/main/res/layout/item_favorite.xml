@@ -25,7 +25,8 @@
             android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:transitionName="itemImage"/>
 
         <TextView
             android:id="@+id/tv_saved_name"

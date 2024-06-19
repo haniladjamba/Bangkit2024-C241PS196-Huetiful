@@ -1,12 +1,17 @@
 package com.bangkit2024.huetiful.ui.activity.result
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.local.model.DetailPalateModel
 import com.bangkit2024.huetiful.databinding.ItemDetailBinding
 
@@ -21,16 +26,29 @@ class ResultAdapter : ListAdapter<DetailPalateModel, ResultAdapter.FullDetailVie
         holder.bind(getItem(position))
     }
 
-    class FullDetailViewHolder(binding: ItemDetailBinding): RecyclerView.ViewHolder(binding.root) {
-        private val itemColor = binding.vItemDetail
-        private val copyBtn = binding.iCopyInfo
+    class FullDetailViewHolder(private val binding: ItemDetailBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: DetailPalateModel) {
-            itemColor.setBackgroundColor(Color.parseColor(data.color))
+            binding.vItemDetail.setBackgroundColor(Color.parseColor(data.color))
+            binding.tvItemInfo.text = data.color
 
-            copyBtn.setOnClickListener {
-                makeToast("Item copied!")
+            binding.iCopyInfo.setOnClickListener {
+                val clipboardManager = itemView.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("Copied Text", data.color)
+                clipboardManager.setPrimaryClip(clipData)
+                if (clipData != null) {
+                    makeToast("Item copied!")
+                } else {
+                    makeToast("Failed to copy item")
+                }
+                animateIcon()
             }
+        }
+
+        private fun animateIcon() {
+            binding.iCopyInfo.setImageResource(R.drawable.copy_anim_linear)
+            val copyButtonAnim = binding.iCopyInfo.drawable as AnimatedVectorDrawable
+            copyButtonAnim.start()
         }
 
         private fun makeToast(message: String) {
