@@ -58,7 +58,8 @@
             android:name=".ui.activity.main.MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.HueTiful" />
+            android:theme="@style/Theme.HueTiful" >
+        </activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"

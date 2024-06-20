@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.data.local.model.DetailPalateModel
+import com.bangkit2024.huetiful.data.remote.response.Name
 import com.bangkit2024.huetiful.databinding.ActivityResultBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.FavoriteViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.main.MainActivity
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import java.lang.NumberFormatException
 
 class ResultActivity : AppCompatActivity() {
 
@@ -36,8 +36,8 @@ class ResultActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setupAction()
-        val dataColor = setupDataColor()
-        setupAdapter(dataColor)
+        val data = setupDataColor()
+        findColorName(data)
         showAnalyzeImage()
         savedUserPalate()
     }
@@ -59,7 +59,6 @@ class ResultActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.iFavoriteFulldetail.setOnClickListener {
             animatedFavoriteIcon()
-            makeToast("Item saved")
             saveFavoriteItems()
         }
         binding.btnBack.setOnClickListener {
@@ -127,11 +126,11 @@ class ResultActivity : AppCompatActivity() {
                     is Result.Loading -> showLoading(true)
                     is Result.Success -> {
                         showLoading(false)
-                        makeToast(getString(R.string.item_saved))
+                        makeToast(result.data)
                     }
                     is Result.Error -> {
-                        showPredictSavePalateError(result.error)
                         showLoading(false)
+                        showPredictSavePalateError(result.error)
                     }
                 }
             }
@@ -159,16 +158,33 @@ class ResultActivity : AppCompatActivity() {
         resultAdapter.submitList(data)
     }
 
-    private fun setupDataColor(): List<DetailPalateModel> {
+    private fun setupDataColor(): List<String> {
         val intent = intent
         val bundle = intent.extras
         if (bundle != null) {
             val colorArrayList = bundle.getStringArrayList("colorList")
             if (!colorArrayList.isNullOrEmpty()) {
-                val colorList: List<DetailPalateModel> = colorArrayList.map { color ->
-                    DetailPalateModel(color = color)
+                val validatedPalette = colorArrayList.map { color ->
+                    try {
+                        val hexColor = String.format(
+                            "#%06X",
+                            0xFFFFFF and Integer.parseInt(color.substring(1), 16)
+                        )
+                        hexColor
+                    } catch (e: NumberFormatException) {
+                        "#FFFFFF"
+                    }
                 }
-                return colorList
+//                val colorList: List<DetailPalateModel> = validatedPalette.map { color ->
+//                    val trimColor = color.trim().trim('#')
+//                    Log.d("color", "trim color : $trimColor")
+//                    DetailPalateModel(
+//                        color = color,
+//                        name = "colorName"
+//                    )
+//                }
+
+                return validatedPalette
             } else {
                 return emptyList()
             }
@@ -176,4 +192,50 @@ class ResultActivity : AppCompatActivity() {
             return emptyList()
         }
     }
+
+    private fun findColorName(colorData : List<String>) {
+
+        val testList = mutableListOf<DetailPalateModel>()
+
+        Log.d("colorData find", "$colorData")
+        colorData.map { hex ->
+            Log.d("Map", "$hex")
+            resultViewModel.getColorName(hex)
+        }
+
+        lifecycleScope.launch {
+            resultViewModel.getColorNameState.collect { result ->
+                when (result) {
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+//                        val updatedColorData = colorData.map { color ->
+//                            color.copy(name = color.name.replace("colorName", result.data))
+//                        }
+//                        Log.d("resultData", result.data)
+//                        Log.d("to adapter","$colorData")
+//                        setupAdapter(updatedColorData)
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+//                        val updatedColorData = colorData.map { color ->
+//                            color.copy(name = result.error)
+//                        }
+//                        setupAdapter(updatedColorData)
+                    }
+                }
+            }
+        }
+
+        resultViewModel.colorName.observe(this) { color ->
+            val testList3 = DetailPalateModel(
+                color = color.closestNamedHex,
+                name = color.value
+            )
+            testList.add(testList3)
+
+            setupAdapter(testList)
+        }
+    }
+
 }

@@ -71,19 +71,24 @@ class FullDetailFragment : Fragment() {
     private fun setupDummyData(): List<DetailPalateModel> {
         return listOf(
             DetailPalateModel(
-                color = "#6e8eb4"
+                color = "#6e8eb4",
+                name = "fffff"
             ),
             DetailPalateModel(
-                color = "#d3a157"
+                color = "#d3a157",
+                name = "fffff"
             ),
             DetailPalateModel(
-                color = "#c57a39"
+                color = "#c57a39",
+                name = "fffff"
             ),
             DetailPalateModel(
-                color = "#44a6ab"
+                color = "#44a6ab",
+                name = "fffff"
             ),
             DetailPalateModel(
-                color = "#c47b89"
+                color = "#c47b89",
+                name = "fffff"
             )
         )
 //        val bundle = arguments

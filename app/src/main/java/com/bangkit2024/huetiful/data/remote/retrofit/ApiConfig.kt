@@ -71,4 +71,21 @@ object ApiConfig {
             .build()
         return retrofit.create(FavoriteApiService::class.java)
     }
+
+    val BASE_URL_COLOR = "https://www.thecolorapi.com/"
+    fun getColorApiService() : ColorApiService {
+        // @best-practice
+        // change logging interceptor to only shown in debugging mode later
+        val loggingInterceptor =
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL_COLOR)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(ColorApiService::class.java)
+    }
 }

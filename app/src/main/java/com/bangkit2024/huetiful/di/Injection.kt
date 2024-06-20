@@ -8,6 +8,7 @@ import com.bangkit2024.huetiful.data.pref.UserPreference
 import com.bangkit2024.huetiful.data.pref.datastore
 import com.bangkit2024.huetiful.data.remote.retrofit.ApiConfig
 import com.bangkit2024.huetiful.data.repository.AuthRepository
+import com.bangkit2024.huetiful.data.repository.ColorInfoRepository
 import com.bangkit2024.huetiful.data.repository.FavoriteRepository
 import com.bangkit2024.huetiful.data.repository.PredictPairRepository
 import com.bangkit2024.huetiful.data.repository.PredictPalateRepository
@@ -48,5 +49,10 @@ object Injection {
         Log.d("Injection", "token : ${user.token}")
         val favoriteApiService = ApiConfig.getFavoriteApiService(user.token)
         return FavoriteRepository.getInstance(favoriteApiService)
+    }
+
+    fun provideColorInfoRepository(context: Context) : ColorInfoRepository {
+        val colorApiService = ApiConfig.getColorApiService()
+        return ColorInfoRepository.getInstance(colorApiService)
     }
 }
