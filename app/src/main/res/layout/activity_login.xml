@@ -130,32 +130,6 @@
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_continue_login"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="@string/continue_with"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/btn_login" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_login_google"-->
-<!--                app:icon="@drawable/flat_color_icons_google"-->
-<!--                app:iconGravity="textStart"-->
-<!--                android:backgroundTint="@color/red_gray_100"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/google"-->
-<!--                android:layout_marginStart="24dp"-->
-<!--                android:layout_marginEnd="24dp"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                app:cornerRadius="8dp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_continue_login"/>-->
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

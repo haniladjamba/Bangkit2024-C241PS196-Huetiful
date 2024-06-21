@@ -3,7 +3,6 @@ package com.bangkit2024.huetiful.ui.activity.resetpassword
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -18,9 +17,6 @@ import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.databinding.ActivityResetPasswordBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.login.LoginActivity
-import com.bangkit2024.huetiful.ui.activity.main.MainActivity
-import com.bangkit2024.huetiful.ui.activity.signup.SignUpActivity
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ResetPasswordActivity : AppCompatActivity() {

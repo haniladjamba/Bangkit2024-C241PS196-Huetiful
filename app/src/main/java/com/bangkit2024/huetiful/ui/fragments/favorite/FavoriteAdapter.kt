@@ -6,16 +6,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkit2024.huetiful.data.local.model.PalateModel
-import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponse
 import com.bangkit2024.huetiful.data.remote.response.GetFavoriteDataResponseItem
 import com.bangkit2024.huetiful.databinding.ItemFavoriteBinding
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity

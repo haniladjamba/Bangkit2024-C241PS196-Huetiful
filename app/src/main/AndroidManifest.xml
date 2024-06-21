@@ -26,11 +26,13 @@
         <activity
             android:name=".ui.activity.resetpassword.ResetPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.HueTiful" />
+            android:theme="@style/Theme.HueTiful"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.verification.VerificationActivity"
             android:exported="false"
-            android:theme="@style/Theme.HueTiful" />
+            android:theme="@style/Theme.HueTiful"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.welcome.WelcomeActivity"
             android:exported="true"

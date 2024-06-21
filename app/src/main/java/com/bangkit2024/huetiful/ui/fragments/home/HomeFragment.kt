@@ -23,18 +23,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.Result
-import com.bangkit2024.huetiful.data.local.model.DetailPalateModel
-import com.bangkit2024.huetiful.data.local.model.PalateModel
 import com.bangkit2024.huetiful.data.remote.response.PredictPalateResponse
 import com.bangkit2024.huetiful.databinding.FragmentHomeBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.ViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.result.ResultActivity
 import com.bangkit2024.huetiful.ui.utils.getImageUri
-import com.bangkit2024.huetiful.ui.utils.reduceFileImage
 import com.bangkit2024.huetiful.ui.utils.uriToFile
 import com.bumptech.glide.Glide
 import com.yalantis.ucrop.UCrop
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -44,8 +40,6 @@ class HomeFragment : Fragment() {
     }
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
     private var destinationUri: Uri? = null
@@ -67,15 +61,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val homeViewModel =
-//            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-//        val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return binding.root
     }
 

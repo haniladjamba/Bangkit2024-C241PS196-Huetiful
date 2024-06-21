@@ -2,13 +2,6 @@ package com.bangkit2024.huetiful.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class GetFavoriteDataResponse(
-
-	@field:SerializedName("GetFavoriteDataResponse")
-	val getFavoriteDataResponse: List<GetFavoriteDataResponseItem> = emptyList()
-
-)
-
 data class GetFavoriteDataResponseItem(
 
 	@field:SerializedName("predicted_palette")

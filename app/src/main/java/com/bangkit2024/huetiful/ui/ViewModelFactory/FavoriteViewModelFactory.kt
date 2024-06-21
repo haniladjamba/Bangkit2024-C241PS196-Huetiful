@@ -32,7 +32,7 @@ class FavoriteViewModelFactory(
         @JvmStatic
         fun getInstance(context: Context) : FavoriteViewModelFactory {
             val favoriteRepository = Injection.provideFavoriteRepository(context)
-            val colorInfoRepository = Injection.provideColorInfoRepository(context)
+            val colorInfoRepository = Injection.provideColorInfoRepository()
 
             if (INSTANCE == null) {
                 synchronized(AuthViewModelFactory::class.java) {

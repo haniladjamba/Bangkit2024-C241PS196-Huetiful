@@ -7,9 +7,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.bangkit2024.huetiful.data.repository.PreferenceRepository
 import com.bangkit2024.huetiful.data.repository.SettingPreferenceRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
@@ -19,9 +16,6 @@ class SettingsViewModel(
 
     private val _closeApp = MutableLiveData<Boolean>()
     val closeApp: LiveData<Boolean> = _closeApp
-
-    private val _isDarkModeActive = MutableLiveData<Boolean>()
-    val isDarkModeActive: LiveData<Boolean> = _isDarkModeActive
 
     fun logout() {
         viewModelScope.launch {

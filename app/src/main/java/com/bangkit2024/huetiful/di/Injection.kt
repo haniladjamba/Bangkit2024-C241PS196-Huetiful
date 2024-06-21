@@ -51,7 +51,7 @@ object Injection {
         return FavoriteRepository.getInstance(favoriteApiService)
     }
 
-    fun provideColorInfoRepository(context: Context) : ColorInfoRepository {
+    fun provideColorInfoRepository() : ColorInfoRepository {
         val colorApiService = ApiConfig.getColorApiService()
         return ColorInfoRepository.getInstance(colorApiService)
     }

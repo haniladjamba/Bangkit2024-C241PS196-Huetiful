@@ -11,7 +11,6 @@ import com.bangkit2024.huetiful.data.repository.FavoriteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.io.IOException
 import java.net.SocketTimeoutException
 
 class FavoriteViewModel(

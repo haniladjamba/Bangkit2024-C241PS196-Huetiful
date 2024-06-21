@@ -5,15 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.databinding.ActivityLoginBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
@@ -32,8 +27,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // This code for removing the app bar
-        // Remove later if end up using app bar
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)

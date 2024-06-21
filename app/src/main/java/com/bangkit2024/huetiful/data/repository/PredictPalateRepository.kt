@@ -1,6 +1,5 @@
 package com.bangkit2024.huetiful.data.repository
 
-import com.bangkit2024.huetiful.data.remote.response.PredictPairResponse
 import com.bangkit2024.huetiful.data.remote.response.PredictPalateResponse
 import com.bangkit2024.huetiful.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody

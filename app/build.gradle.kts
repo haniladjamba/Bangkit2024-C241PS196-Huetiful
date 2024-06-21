@@ -19,6 +19,7 @@ android {
         buildConfigField("String","BASE_URL_AUTH", "\"http://35.219.99.255:5000/\"")
         buildConfigField("String","BASE_URL_MODEL1", "\"https://capstone-uwrmimd5cq-et.a.run.app/\"")
         buildConfigField("String","BASE_URL_MODEL2", "\"https://capstone-model-2-uwrmimd5cq-et.a.run.app/\"")
+        buildConfigField("String","BASE_URL_COLOR", "\"https://www.thecolorapi.com/\"")
     }
 
     buildTypes {

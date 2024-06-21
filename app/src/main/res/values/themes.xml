@@ -35,6 +35,9 @@
         <item name="strokeColor">@color/black_100</item>
         <item name="android:src">@drawable/mage_image_plus</item>
     </style>
+    <style name="BorderColor2">
+    <item name="strokeColor">@color/black_100</item>
+    </style>
     <style name="BackButtonColor"><item name="android:src">@drawable/baseline_arrow_forward_ios_24</item></style>
     <style name="LogoutIcon"><item name="android:src">@drawable/tabler_door_exit</item></style>
     <style name="EditTextColor">

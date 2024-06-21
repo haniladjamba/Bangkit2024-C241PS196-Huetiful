@@ -1,14 +1,9 @@
 package com.bangkit2024.huetiful.ui.activity.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Window
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -17,8 +12,7 @@ import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityMainBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.fragments.settings.SettingsViewModel
-import com.bangkit2024.huetiful.ui.utils.setLocale
-import com.yalantis.ucrop.UCrop
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,8 +32,6 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navHostMain
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,

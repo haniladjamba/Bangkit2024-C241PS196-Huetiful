@@ -1,12 +1,10 @@
 package com.bangkit2024.huetiful.ui.fragments.settings
 
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -16,7 +14,6 @@ import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.utils.awaitFirstValue
 import com.bangkit2024.huetiful.databinding.FragmentSettingsBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
-import com.bangkit2024.huetiful.ui.activity.login.LoginActivity
 import com.bangkit2024.huetiful.ui.utils.setLocale
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
@@ -25,8 +22,6 @@ class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private val settingsViewModel by viewModels<SettingsViewModel> {
         AuthViewModelFactory.getInstance(requireContext())
@@ -35,7 +30,7 @@ class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -94,21 +89,17 @@ class SettingsFragment : Fragment() {
         dialog.show()
     }
 
-    private fun makeToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
     private fun setupLanguageSelection() {
         val radioGroup = binding.radioGroup
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rb_switch_id -> {
-                    setLocale(requireContext(), "id") // Set Indonesian locale
-                    settingsViewModel.saveLanguageSetting(false) // Save false to DataStore
+                    setLocale(requireContext(), "id")
+                    settingsViewModel.saveLanguageSetting(false)
                 }
                 R.id.rb_switch_en -> {
-                    setLocale(requireContext(), "en") // Set English locale
-                    settingsViewModel.saveLanguageSetting(true) // Save true to DataStore
+                    setLocale(requireContext(), "en")
+                    settingsViewModel.saveLanguageSetting(true)
                 }
             }
         }

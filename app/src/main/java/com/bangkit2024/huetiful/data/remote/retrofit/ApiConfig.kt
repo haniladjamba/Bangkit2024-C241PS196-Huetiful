@@ -12,10 +12,11 @@ import java.util.concurrent.TimeUnit
 object ApiConfig {
 
     fun getAuthApiService() : AuthApiService {
-        // @best-practice
-        // change logging interceptor to only shown in debugging mode later
-        val loggingInterceptor =
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
@@ -28,17 +29,18 @@ object ApiConfig {
     }
 
     fun getApiService(baseUrl: String) : ApiService {
-        // @best-practice
-        // change logging interceptor to only shown in debugging mode later
-        val loggingInterceptor =
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .connectionPool(ConnectionPool(10, 5, TimeUnit.MINUTES))
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .callTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .writeTimeout(120, TimeUnit.SECONDS)
+            .callTimeout(120, TimeUnit.SECONDS)
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -49,10 +51,11 @@ object ApiConfig {
     }
 
     fun getFavoriteApiService(token: String) : FavoriteApiService {
-        // @best-practice
-        // change logging interceptor to only shown in debugging mode later
-        val loggingInterceptor =
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
         val authInterceptor = Interceptor { chain ->
             val req = chain.request()
             val requestHeaders = req.newBuilder()
@@ -72,17 +75,17 @@ object ApiConfig {
         return retrofit.create(FavoriteApiService::class.java)
     }
 
-    val BASE_URL_COLOR = "https://www.thecolorapi.com/"
     fun getColorApiService() : ColorApiService {
-        // @best-practice
-        // change logging interceptor to only shown in debugging mode later
-        val loggingInterceptor =
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL_COLOR)
+            .baseUrl(BuildConfig.BASE_URL_COLOR)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

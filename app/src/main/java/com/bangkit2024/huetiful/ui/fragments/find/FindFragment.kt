@@ -174,7 +174,7 @@ class FindFragment : Fragment() {
         destinationUri = getImageUri(requireContext())
         currentImageUri?.let {
             UCrop.of(it, destinationUri!!)
-                .start(requireContext(), this, UCrop.REQUEST_CROP);
+                .start(requireContext(), this, UCrop.REQUEST_CROP)
         } ?: makeToast(getString(R.string.cannot_find_image))
     }
 

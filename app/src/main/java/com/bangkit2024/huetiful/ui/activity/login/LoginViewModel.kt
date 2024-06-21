@@ -3,11 +3,11 @@ package com.bangkit2024.huetiful.ui.activity.login
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bangkit2024.huetiful.data.repository.AuthRepository
-import kotlinx.coroutines.flow.MutableStateFlow
 import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.data.pref.UserModel
+import com.bangkit2024.huetiful.data.repository.AuthRepository
 import com.bangkit2024.huetiful.data.repository.PreferenceRepository
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException

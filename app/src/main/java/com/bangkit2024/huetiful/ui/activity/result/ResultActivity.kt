@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.data.Result
 import com.bangkit2024.huetiful.data.local.model.DetailPalateModel
-import com.bangkit2024.huetiful.data.remote.response.Name
 import com.bangkit2024.huetiful.databinding.ActivityResultBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.FavoriteViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.main.MainActivity
@@ -178,14 +177,6 @@ class ResultActivity : AppCompatActivity() {
                         "#FFFFFF"
                     }
                 }
-//                val colorList: List<DetailPalateModel> = validatedPalette.map { color ->
-//                    val trimColor = color.trim().trim('#')
-//                    Log.d("color", "trim color : $trimColor")
-//                    DetailPalateModel(
-//                        color = color,
-//                        name = "colorName"
-//                    )
-//                }
 
                 return validatedPalette
             } else {
@@ -212,19 +203,9 @@ class ResultActivity : AppCompatActivity() {
                     is Result.Loading -> showLoading(true)
                     is Result.Success -> {
                         showLoading(false)
-//                        val updatedColorData = colorData.map { color ->
-//                            color.copy(name = color.name.replace("colorName", result.data))
-//                        }
-//                        Log.d("resultData", result.data)
-//                        Log.d("to adapter","$colorData")
-//                        setupAdapter(updatedColorData)
                     }
                     is Result.Error -> {
                         showLoading(false)
-//                        val updatedColorData = colorData.map { color ->
-//                            color.copy(name = result.error)
-//                        }
-//                        setupAdapter(updatedColorData)
                     }
                 }
             }

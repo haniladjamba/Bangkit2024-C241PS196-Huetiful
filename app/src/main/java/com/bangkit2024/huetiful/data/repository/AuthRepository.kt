@@ -1,6 +1,5 @@
 package com.bangkit2024.huetiful.data.repository
 
-import android.util.Log
 import com.bangkit2024.huetiful.data.remote.response.LoginResponse
 import com.bangkit2024.huetiful.data.remote.response.RegisterResponse
 import com.bangkit2024.huetiful.data.remote.response.ResetPasswordResponse
