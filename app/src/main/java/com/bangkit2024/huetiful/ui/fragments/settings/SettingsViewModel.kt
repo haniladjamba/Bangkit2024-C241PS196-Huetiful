@@ -39,4 +39,14 @@ class SettingsViewModel(
             settingPreferenceRepository.saveThemeSetting(isDarkMode)
         }
     }
+
+    fun saveLanguageSetting(isEnglish: Boolean) {
+        viewModelScope.launch {
+            settingPreferenceRepository.saveLangSetting(isEnglish)
+        }
+    }
+
+    fun getCurrentLanguage(): LiveData<Boolean> {
+        return settingPreferenceRepository.getCurrentLanguage().asLiveData()
+    }
 }

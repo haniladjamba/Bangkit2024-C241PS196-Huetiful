@@ -13,6 +13,7 @@ import com.bangkit2024.huetiful.data.repository.FavoriteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 class ResultViewModel(
     private val favoriteRepository: FavoriteRepository,
@@ -41,7 +42,11 @@ class ResultViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "exception : ${e.message.toString()}")
-                _saveFavoriteState.emit(Result.Error("error : ${e.message.toString()}"))
+                if (e is SocketTimeoutException) {
+                    _saveFavoriteState.emit(Result.Error("failed to connect to server"))
+                } else {
+                    _saveFavoriteState.emit(Result.Error("error : ${e.message.toString()}"))
+                }
             }
         }
     }
@@ -66,8 +71,12 @@ class ResultViewModel(
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.d(TAG, "error geting color name : ${e.message.toString()}")
-                _getColorNameState.emit(Result.Error("Unknown"))
                 _colorName.value = null
+                if (e is SocketTimeoutException) {
+                    _getColorNameState.emit(Result.Error("failed to connect to server"))
+                } else {
+                    _getColorNameState.emit(Result.Error("Unknown"))
+                }
             }
         }
     }

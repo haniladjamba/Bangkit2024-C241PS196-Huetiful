@@ -18,6 +18,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.net.SocketTimeoutException
 
 class FindViewModel(
     private val predictPairRepository: PredictPairRepository
@@ -55,9 +56,12 @@ class FindViewModel(
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    _predictPairState.emit(Result.Error(e.message.toString()))
                     _predictPairResult.value = null
-                    Log.d(TAG, "predictPair error : ${e.message.toString()}")
+                    if (e is SocketTimeoutException) {
+                        _predictPairState.emit(Result.Error("failed to connect to server"))
+                    } else {
+                        _predictPairState.emit(Result.Error(e.message.toString()))
+                    }
                 }
             }
         }

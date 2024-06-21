@@ -1,7 +1,9 @@
 package com.bangkit2024.huetiful.ui.utils
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -106,4 +108,16 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
     return Bitmap.createBitmap(
         source, 0, 0, source.width, source.height, matrix, true
     )
+}
+
+fun setLocale(context: Context, languageCode: String) {
+    val locale = Locale(languageCode)
+    Locale.setDefault(locale)
+    val config = Configuration()
+    config.setLocale(locale)
+    context.resources.updateConfiguration(config, context.resources.displayMetrics)
+
+    (context as? Activity)?.apply {
+        recreate()
+    }
 }

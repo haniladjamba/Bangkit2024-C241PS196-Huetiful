@@ -61,22 +61,45 @@ class LoginActivity : AppCompatActivity() {
         val email = binding.edEmailLogin.text.toString()
         val password = binding.edPasswordLogin.text.toString()
 
-        lifecycleScope.launch {
-            loginViewModel.login(email, password)
-            loginViewModel.loginState.collect { result ->
-                when (result) {
-                    is Result.Loading -> showLoading(true)
-                    is Result.Success -> {
-                        showLoading(false)
-                        navigateToHome()
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        showLoginError(result.error)
+        val loginValidity = checkLoginInfo(email, password)
+        if (!loginValidity) {
+            showToast("Try again")
+        } else {
+            lifecycleScope.launch {
+                loginViewModel.login(email, password)
+                loginViewModel.loginState.collect { result ->
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            navigateToHome()
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            if (!result.shown) {
+                                showLoginError(result.error)
+                                result.shown = true
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun checkLoginInfo(email: String, password: String) : Boolean {
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            showToast("Incorrect email format")
+            return false
+        }
+
+        if (password.length < 8) {
+            showToast("Password must be more than 8 character")
+            return false
+        }
+
+        return true
     }
 
     private fun showLoginError(error: String) {

@@ -17,6 +17,7 @@ import okhttp3.MultipartBody.Part.Companion.create
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import java.net.SocketTimeoutException
 
 
 class HomeViewModel(
@@ -57,8 +58,11 @@ private val predictPalateRepository: PredictPalateRepository
                 }
             } catch (e: Exception) {
                 _predictPalateResult.value = null
-                _predictPalateState.emit(Result.Error(e.message.toString()))
-                Log.d(TAG, "predictPalate error : ${e.message.toString()}")
+                if (e is SocketTimeoutException) {
+                    _predictPalateState.emit(Result.Error("failed to connect to server"))
+                } else {
+                    _predictPalateState.emit(Result.Error(e.message.toString()))
+                }
             }
         }
     }

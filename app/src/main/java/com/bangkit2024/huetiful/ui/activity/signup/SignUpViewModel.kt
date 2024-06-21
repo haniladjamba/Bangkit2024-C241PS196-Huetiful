@@ -1,8 +1,6 @@
 package com.bangkit2024.huetiful.ui.activity.signup
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bangkit2024.huetiful.data.repository.AuthRepository
@@ -10,6 +8,7 @@ import com.bangkit2024.huetiful.data.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 class SignUpViewModel(
     private val authRepository: AuthRepository
@@ -31,7 +30,11 @@ class SignUpViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "register failed with exception: ${e.message}")
-                _registerState.emit(Result.Error(e.message.toString()))
+                if (e is SocketTimeoutException) {
+                    _registerState.emit(Result.Error("failed to connect to server"))
+                } else {
+                    _registerState.emit(Result.Error(e.message.toString()))
+                }
             }
         }
     }

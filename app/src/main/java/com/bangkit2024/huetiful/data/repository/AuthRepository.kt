@@ -10,7 +10,6 @@ class AuthRepository private constructor(
     private val authApiService: AuthApiService
 ){
     suspend fun register(name: String, email: String, password: String) : RegisterResponse {
-        Log.d("repository", "email: $email")
         return authApiService.register(name, email, password)
     }
 

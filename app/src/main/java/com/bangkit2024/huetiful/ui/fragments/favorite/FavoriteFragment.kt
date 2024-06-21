@@ -60,6 +60,9 @@ class FavoriteFragment : Fragment() {
             if (favoriteData != null) {
                 Log.d("FavoriteFragment", "data : $favoriteData")
                 setupAdapter(favoriteData)
+            } else {
+                Log.d("FavoriteFragment", "data : $favoriteData")
+                binding.tvFavoriteEmpty.isVisible = true
             }
         }
 
@@ -72,55 +75,6 @@ class FavoriteFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.pbFavorite.isVisible = isLoading
-    }
-
-    private fun setupDummyData(): List<PalateModel> {
-        val palates = listOf(
-            PalateModel(
-                color1 = "#C44F6B",
-                color2 = "#FF859F",
-                color3 = "#FFBCD5",
-                color4 = "#F6D0C5",
-                color5 = "#FF859F"
-            ),
-            PalateModel(
-                color1 = "#C44F6B",
-                color2 = "#FF859F",
-                color3 = "#FFBCD5",
-                color4 = "#F6D0C5",
-                color5 = "#FF859F"
-            ),
-            PalateModel(
-                color1 = "#C44F6B",
-                color2 = "#FF859F",
-                color3 = "#FFBCD5",
-                color4 = "#F6D0C5",
-                color5 = "#FF859F"
-            ),
-            PalateModel(
-                color1 = "#C44F6B",
-                color2 = "#FF859F",
-                color3 = "#FFBCD5",
-                color4 = "#F6D0C5",
-                color5 = "#FF859F"
-            ),
-            PalateModel(
-                color1 = "#C44F6B",
-                color2 = "#FF859F",
-                color3 = "#FFBCD5",
-                color4 = "#F6D0C5",
-                color5 = "#FF859F"
-            ),
-            PalateModel(
-                color1 = "#C44F6B",
-                color2 = "#FF859F",
-                color3 = "#FFBCD5",
-                color4 = "#F6D0C5",
-                color5 = "#FF859F"
-            )
-        )
-
-        return palates
     }
 
     private fun setupAdapter(palateModel: List<GetFavoriteDataResponseItem?>) {

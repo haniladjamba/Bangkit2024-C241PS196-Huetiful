@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.net.SocketTimeoutException
 
 class FavoriteViewModel(
     private val favoriteRepository: FavoriteRepository
@@ -39,10 +40,14 @@ class FavoriteViewModel(
                     _getFavoriteDataState.emit(Result.Error("no saved item found"))
                     _favoriteData.value = null
                 }
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 Log.d(TAG, "exception : ${e.message.toString()}")
-                _getFavoriteDataState.emit(Result.Error("error : ${e.message.toString()}"))
                 _favoriteData.value = null
+                if (e is SocketTimeoutException) {
+                    _getFavoriteDataState.emit(Result.Error("failed to connect to server"))
+                } else {
+                    _getFavoriteDataState.emit(Result.Error(e.message.toString()))
+                }
             }
         }
     }

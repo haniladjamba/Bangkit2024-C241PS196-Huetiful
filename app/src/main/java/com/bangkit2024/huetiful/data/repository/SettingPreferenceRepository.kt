@@ -15,6 +15,14 @@ class SettingPreferenceRepository private constructor(
         settingsPreference.saveThemeSetting(isDarkMode)
     }
 
+    suspend fun saveLangSetting(isEnglish: Boolean) {
+        settingsPreference.saveLangSetting(isEnglish)
+    }
+
+    fun getCurrentLanguage(): Flow<Boolean> {
+        return settingsPreference.getCurrentLanguage()
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: SettingPreferenceRepository? = null

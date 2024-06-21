@@ -2,10 +2,12 @@ package com.bangkit2024.huetiful.ui.fragments.settings
 
 import android.app.Dialog
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -18,6 +20,7 @@ import com.bangkit2024.huetiful.data.utils.awaitFirstValue
 import com.bangkit2024.huetiful.databinding.FragmentSettingsBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.login.LoginActivity
+import com.bangkit2024.huetiful.ui.utils.setLocale
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
@@ -44,21 +47,15 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeSwitchStatus()
+        observeLanguageStatus()
         setupAction()
+        setupLanguageSelection()
     }
 
     private fun observeSwitchStatus() {
-//        settingsViewModel.getThemeSetting().observe(requireActivity()) { isDarkMode: Boolean ->
-//            if (isDarkMode) {
-//                binding.swChangeTheme.isChecked = true
-//            } else {
-//                binding.swChangeTheme.isChecked = false
-//            }
-//        }
         lifecycleScope.launch {
             val isDarkMode = settingsViewModel.getThemeSetting().awaitFirstValue()
             isDarkMode?.let { binding.swChangeTheme.isChecked = it }
-
         }
     }
 
@@ -104,5 +101,39 @@ class SettingsFragment : Fragment() {
 
     private fun makeToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupLanguageSelection() {
+        val radioGroup = binding.radioGroup
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rb_switch_id -> {
+                    setLocale(requireContext(), "id") // Set Indonesian locale
+                    settingsViewModel.saveLanguageSetting(false) // Save false to DataStore
+                }
+                R.id.rb_switch_en -> {
+                    setLocale(requireContext(), "en") // Set English locale
+                    settingsViewModel.saveLanguageSetting(true) // Save true to DataStore
+                }
+            }
+        }
+    }
+
+    private fun observeLanguageStatus() {
+        settingsViewModel.getCurrentLanguage().observe(viewLifecycleOwner) { isEnglish ->
+            disableListener {
+                when (isEnglish) {
+                    true -> binding.rbSwitchEn.isChecked = true
+                    false -> binding.rbSwitchId.isChecked = true
+                }
+                setLocale(requireContext(), if (isEnglish) "en" else "id")
+            }
+        }
+    }
+
+    private fun disableListener(action: () -> Unit) {
+        binding.radioGroup.setOnCheckedChangeListener(null)
+        action()
+        setupLanguageSelection()
     }
 }

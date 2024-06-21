@@ -8,6 +8,7 @@ import com.bangkit2024.huetiful.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 class ResetPasswordViewModel(
     private val authRepository: AuthRepository,
@@ -28,7 +29,11 @@ class ResetPasswordViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "reset password error : ${e.message.toString()}")
-                _resetPasswordState.emit(Result.Error(e.message.toString()))
+                if (e is SocketTimeoutException) {
+                    _resetPasswordState.emit(Result.Error("failed to connect to server"))
+                } else {
+                    _resetPasswordState.emit(Result.Error(e.message.toString()))
+                }
             }
         }
     }

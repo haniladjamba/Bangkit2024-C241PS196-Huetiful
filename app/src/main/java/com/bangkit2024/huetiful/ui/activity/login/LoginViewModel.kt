@@ -10,6 +10,7 @@ import com.bangkit2024.huetiful.data.pref.UserModel
 import com.bangkit2024.huetiful.data.repository.PreferenceRepository
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 class LoginViewModel(
     private val authRepository: AuthRepository,
@@ -36,7 +37,12 @@ class LoginViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "login failed with error : ${e.message}")
-                _loginState.emit(Result.Error(e.message.toString()))
+
+                if (e is SocketTimeoutException) {
+                    _loginState.emit(Result.Error("failed to connect to server"))
+                } else {
+                    _loginState.emit(Result.Error(e.message.toString()))
+                }
             }
         }
     }

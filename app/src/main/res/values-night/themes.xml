@@ -45,4 +45,5 @@
     <style name="EmailIconColor"><item name="android:src">@drawable/line_md_email_white</item></style>
     <style name="CopyIconColor"><item name="android:src">@drawable/solar_copy_linear_white</item></style>
     <style name="ViewColor"><item name="android:background">@drawable/rounded_background_black</item></style>
+    <style name="WelcomeBackground"><item name="android:src">@drawable/welcome_bg</item></style>
 </resources>

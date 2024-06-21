@@ -60,22 +60,49 @@ class SignUpActivity : AppCompatActivity() {
         Log.d(TAG, "input email: $email")
         val password = binding.edPassword.text.toString()
 
-        lifecycleScope.launch {
-            signUpViewModel.register(name, email, password)
-            signUpViewModel.registerState.collect { result ->
-                when (result) {
-                    is Result.Loading -> showLoading(true)
-                    is Result.Success -> {
-                        showLoading(false)
-                        navigateToVerifyEmail()
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        showRegistrationError(result.error)
+        val valid = checkRegistrationInfo(name, email, password)
+        if (!valid) {
+            showToast("Try again")
+        } else {
+            lifecycleScope.launch {
+                signUpViewModel.register(name, email, password)
+                signUpViewModel.registerState.collect { result ->
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            navigateToVerifyEmail()
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            if (!result.shown) {
+                                showRegistrationError(result.error)
+                                result.shown = true
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun checkRegistrationInfo(name: String, email: String, password: String) : Boolean {
+        if (name.length > 24) {
+            showToast("Name must be less than 24 character")
+            return false
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            showToast("Incorrect email format")
+            return false
+        }
+
+        if (password.length < 8) {
+            showToast("Password must be more than 8 character")
+            return false
+        }
+
+        return true
     }
 
     private fun showRegistrationError(error: String) {

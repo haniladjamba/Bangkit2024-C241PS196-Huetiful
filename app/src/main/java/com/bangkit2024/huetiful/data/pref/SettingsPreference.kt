@@ -19,6 +19,18 @@ class SettingsPreference private constructor(private val dataStore: DataStore<Pr
         }
     }
 
+    suspend fun saveLangSetting(isEnglish: Boolean) {
+        dataStore.edit { preference ->
+            preference[LANG_KEY] = isEnglish
+        }
+    }
+
+    fun getCurrentLanguage(): Flow<Boolean> {
+        return dataStore.data.map { preference ->
+            preference[LANG_KEY] ?: false
+        }
+    }
+
     fun getThemeSetting(): Flow<Boolean> {
         return dataStore.data.map { preference ->
             preference[THEME_KEY] ?: false
@@ -30,6 +42,7 @@ class SettingsPreference private constructor(private val dataStore: DataStore<Pr
         private var INSTANCE: SettingsPreference? = null
 
         private val THEME_KEY = booleanPreferencesKey("theme_setting")
+        private val LANG_KEY = booleanPreferencesKey("language_setting")
 
         fun getInstance(dataStore: DataStore<Preferences>): SettingsPreference {
             return INSTANCE ?: synchronized(this) {

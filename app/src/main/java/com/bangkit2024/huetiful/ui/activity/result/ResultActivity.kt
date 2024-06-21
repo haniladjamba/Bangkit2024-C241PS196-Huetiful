@@ -130,7 +130,10 @@ class ResultActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         showLoading(false)
-                        showPredictSavePalateError(result.error)
+                        if (!result.shown) {
+                            showPredictSavePalateError(result.error)
+                            result.shown = true
+                        }
                     }
                 }
             }

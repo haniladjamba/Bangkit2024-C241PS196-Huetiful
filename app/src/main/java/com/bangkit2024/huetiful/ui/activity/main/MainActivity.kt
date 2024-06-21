@@ -17,6 +17,7 @@ import com.bangkit2024.huetiful.R
 import com.bangkit2024.huetiful.databinding.ActivityMainBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.fragments.settings.SettingsViewModel
+import com.bangkit2024.huetiful.ui.utils.setLocale
 import com.yalantis.ucrop.UCrop
 
 class MainActivity : AppCompatActivity() {
