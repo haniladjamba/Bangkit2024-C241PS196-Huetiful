@@ -53,9 +53,6 @@ class VerificationActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
-        binding.tvEmailResend.setOnClickListener {
-            makeToast("resend verification email")
-        }
     }
 
     private fun makeToast(message: String) {
