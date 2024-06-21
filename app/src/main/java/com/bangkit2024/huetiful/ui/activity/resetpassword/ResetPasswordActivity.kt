@@ -59,9 +59,6 @@ class ResetPasswordActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
-        binding.btnEmail.setOnClickListener {
-            makeToast("open email app")
-        }
         binding.tvReset.setOnClickListener {
             resetPassword()
         }

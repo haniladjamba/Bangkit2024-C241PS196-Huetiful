@@ -50,7 +50,7 @@
     <string name="failed_register_account">Gagal untuk mendaftarkan akun anda</string>
     <string name="logout_info">Yakin ingin keluar dari akunmu?</string>
     <string name="cancel">Batal</string>
-    <string name="email_verify_info">klik pada link vertifikasi email yang dikirim padamu di example@gmailcom</string>
+    <string name="email_verify_info">klik pada link vertifikasi email yang dikirim padamu di email yang telah didaftarkan</string>
     <string name="email_verify">Kami telah mengirimmu sebuah email</string>
     <string name="email_verify_check">Masih belum menerima email?</string>
     <string name="email_verify_resend">kirim ulang</string>

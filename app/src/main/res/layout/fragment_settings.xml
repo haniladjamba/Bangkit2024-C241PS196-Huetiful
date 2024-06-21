@@ -1,172 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.settings.SettingsFragment">
 
-    <TextView
-        android:id="@+id/tv_settings_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_settings_preference"
-        android:textStyle="bold"
-        style="@style/TextColor"
-        android:textSize="22sp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_dark_mode"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="20dp"
-        style="@style/CardBackground"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp"
-        app:layout_constraintStart_toStartOf="@id/tv_settings_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_settings_title">
+        android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/tv_dark_mode"
+            android:id="@+id/tv_settings_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:gravity="center_vertical"
-            android:text="@string/dark_mode"
+            android:text="@string/title_settings_preference"
+            android:textStyle="bold"
             style="@style/TextColor"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="22sp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/sw_change_theme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="24dp" />
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_lang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="8dp"
-        style="@style/CardBackground"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp"
-        app:layout_constraintStart_toStartOf="@id/cv_dark_mode"
-        app:layout_constraintTop_toBottomOf="@+id/cv_dark_mode">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_dark_mode"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="20dp"
+            style="@style/CardBackground"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toStartOf="@id/tv_settings_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_settings_title">
 
             <TextView
-                android:id="@+id/tv_lang"
+                android:id="@+id/tv_dark_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="24dp"
-                android:text="@string/language"
+                android:gravity="center_vertical"
+                android:text="@string/dark_mode"
                 style="@style/TextColor"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_lang_id"
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/sw_change_theme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="24dp"
-                android:text="@string/lang_id"
-                style="@style/TextColor"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/radio_group" />
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="24dp" />
 
-            <TextView
-                android:id="@+id/tv_lang_en"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="@string/lang_en"
-                style="@style/TextColor"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@+id/radio_group"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_lang_id" />
+        </androidx.cardview.widget.CardView>
 
-            <RadioGroup
-                android:id="@+id/radio_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintStart_toEndOf="@+id/tv_lang_id"
-                app:layout_constraintTop_toBottomOf="@id/tv_lang"
-                app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_lang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="8dp"
+            style="@style/CardBackground"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toStartOf="@id/cv_dark_mode"
+            app:layout_constraintTop_toBottomOf="@+id/cv_dark_mode">
 
-                <RadioButton
-                    android:id="@+id/rb_switch_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <RadioButton
-                    android:id="@+id/rb_switch_en"
+                <TextView
+                    android:id="@+id/tv_lang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"/>
-            </RadioGroup>
+                    android:layout_margin="24dp"
+                    android:text="@string/language"
+                    style="@style/TextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_lang_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/lang_id"
+                    style="@style/TextColor"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/radio_group" />
 
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/tv_lang_en"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/lang_en"
+                    style="@style/TextColor"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="@+id/radio_group"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_lang_id" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="8dp"
-        style="@style/CardBackground"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_lang">
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toEndOf="@+id/tv_lang_id"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lang"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/tv_logout"
-            android:layout_width="wrap_content"
+                    <RadioButton
+                        android:id="@+id/rb_switch_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/rb_switch_en"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"/>
+                </RadioGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_logout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:gravity="center_vertical"
-            android:text="@string/logout"
-            style="@style/TextColor"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="8dp"
+            style="@style/CardBackground"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_lang">
 
-        <ImageView
-            android:id="@+id/btn_logout"
-            style="@style/BackButtonColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="24dp" />
+            <TextView
+                android:id="@+id/tv_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:gravity="center_vertical"
+                android:text="@string/logout"
+                style="@style/TextColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/btn_logout"
+                style="@style/BackButtonColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="24dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

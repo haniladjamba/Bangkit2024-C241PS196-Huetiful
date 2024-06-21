@@ -38,14 +38,14 @@ class ResultViewModel(
                 if (saveFavoriteResponse != null && saveFavoriteResponse.msg == "Activity saved successfully") {
                     _saveFavoriteState.emit(Result.Success(R.string.item_saved.toString()))
                 } else {
-                    _saveFavoriteState.emit(Result.Error("failed to save items"))
+                    _saveFavoriteState.emit(Result.Error("Failed to saved items"))
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "exception : ${e.message.toString()}")
                 if (e is SocketTimeoutException) {
                     _saveFavoriteState.emit(Result.Error("failed to connect to server"))
                 } else {
-                    _saveFavoriteState.emit(Result.Error("error : ${e.message.toString()}"))
+                    _saveFavoriteState.emit(Result.Error("error : activity already exist"))
                 }
             }
         }
