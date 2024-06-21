@@ -32,8 +32,13 @@
             android:theme="@style/Theme.HueTiful" />
         <activity
             android:name=".ui.activity.welcome.WelcomeActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Welcome" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.login.LoginActivity"
@@ -51,15 +56,9 @@
             android:theme="@style/Theme.HueTiful" />
         <activity
             android:name=".ui.activity.main.MainActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.HueTiful" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.HueTiful" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"

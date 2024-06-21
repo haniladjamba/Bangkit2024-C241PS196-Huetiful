@@ -116,8 +116,4 @@ fun setLocale(context: Context, languageCode: String) {
     val config = Configuration()
     config.setLocale(locale)
     context.resources.updateConfiguration(config, context.resources.displayMetrics)
-
-    (context as? Activity)?.apply {
-        recreate()
-    }
 }

@@ -1,5 +1,6 @@
 package com.bangkit2024.huetiful.ui.activity.welcome
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.AnimationDrawable
@@ -7,7 +8,12 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +26,7 @@ import com.bangkit2024.huetiful.databinding.ActivityWelcomeBinding
 import com.bangkit2024.huetiful.ui.ViewModelFactory.AuthViewModelFactory
 import com.bangkit2024.huetiful.ui.activity.main.MainActivity
 import com.bangkit2024.huetiful.ui.activity.signup.SignUpActivity
+import com.bangkit2024.huetiful.ui.utils.setLocale
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -44,8 +51,19 @@ class WelcomeActivity : AppCompatActivity() {
         setSpanTvQuote()
         setupAnimation()
         checkTheme()
+        checkLanguage()
         setupAction()
         checkSession()
+    }
+
+    private fun checkLanguage() {
+        welcomeViewModel.getThemeSettings().observe(this) { isEnglish ->
+            if (isEnglish) {
+                setLocale(this, "en")
+            } else {
+                setLocale(this, "id")
+            }
+        }
     }
 
     private fun checkTheme() {

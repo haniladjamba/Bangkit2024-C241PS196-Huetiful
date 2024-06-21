@@ -2,15 +2,12 @@ package com.bangkit2024.huetiful.ui.fragments.settings
 
 import android.app.Dialog
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -120,20 +117,16 @@ class SettingsFragment : Fragment() {
     }
 
     private fun observeLanguageStatus() {
-        settingsViewModel.getCurrentLanguage().observe(viewLifecycleOwner) { isEnglish ->
-            disableListener {
-                when (isEnglish) {
-                    true -> binding.rbSwitchEn.isChecked = true
-                    false -> binding.rbSwitchId.isChecked = true
+        lifecycleScope.launch {
+            val isEnglish = settingsViewModel.getCurrentLanguage().awaitFirstValue()
+            isEnglish?.let { language ->
+                if (language) {
+                    binding.rbSwitchEn.isChecked = true
+                } else {
+                    binding.rbSwitchId.isChecked = true
                 }
-                setLocale(requireContext(), if (isEnglish) "en" else "id")
             }
         }
     }
 
-    private fun disableListener(action: () -> Unit) {
-        binding.radioGroup.setOnCheckedChangeListener(null)
-        action()
-        setupLanguageSelection()
-    }
 }
